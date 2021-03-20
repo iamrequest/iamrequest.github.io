@@ -1,0 +1,56 @@
+.logo {
+    width: 1em;
+    height: 1em;
+}
+
+.header_url {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+@media (min-width: 1200px) {
+    .container{
+        max-width: 1300px;
+    }
+}
+
+.jumbotron {
+    color: #e8e8e8;
+    padding: 1rem;
+}
+
+.card-album {
+    padding-top: 0px;
+}
+
+.item-title {
+    color: #e8e8e8;
+}
+
+.item-url {
+    color: #e8e8e8;
+}
+
+.navbar-brand {
+	border-right: 0px;
+}
+
+.navbar .nav-link {
+	/* Remove side borders that come with slate bootstrap theme */
+	border-left: 0px;
+	border-right: 0px;
+
+	padding-bottom: .75rem
+}
+
+.nav-link.active {
+	/* Add more depth to selected navbar link */
+	font-weight: bold;
+	border-bottom: .25rem solid white;
+}
+
+.card-video {
+	/* https://blog.theodo.com/2018/01/responsive-iframes-css-trick/. Padding top is related to the default YouTube aspect ratio */
+	position:relative;
+	padding-top:56.25%;
+}

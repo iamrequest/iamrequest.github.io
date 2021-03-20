@@ -11,42 +11,11 @@
 		<!-- Bootstrap JS & Popper -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
+		<!-- Local CSS -->
+		<link rel="stylesheet" href="./style.css" />
+
 		<title>made by request</title>
 
-		<style>
-			.logo {
-				width: 1em;
-				height: 1em;
-			}
-
-			.header_url {
-				padding-left: 1em;
-				padding-right: 1em;
-			}
-
-			@media (min-width: 1200px) {
-			    .container{
-			        max-width: 1300px;
-			    }
-			}
-
-			.jumbotron {
-				color: #e8e8e8;
-				padding: 1rem;
-			}
-
-			.card-album {
-				padding-top: 0px;
-			}
-
-			.item-title {
-				color: #e8e8e8;
-			}
-
-			.item-url {
-				color: #e8e8e8;
-			}
-		</style>
 	</head>
 	<body>
 		<header>
@@ -56,6 +25,11 @@
 						<strong>made by request</strong>
 						<span style="padding-left:1ch">made with love</span>
 					</a>
+
+					<nav class="nav nav-masthead float-md-end">
+						<a class="nav-link active" aria-current="page" href="index.html">Games</a>
+						<a class="nav-link" aria-current="page" href="music.html">Music</a>
+					</nav>
 				</div>
 			</div>
 		</header>
@@ -78,6 +52,10 @@
 							<img class="logo" src="images/github_logo.png" />
 							Github
 						</a>
+						<a class="header_url" href="https://opengameart.org/users/request">
+                            <img class="logo" src="images/opengameart_logo.png" />
+                            OpenGameArt
+                        </a>
 					</p>
 				</div>
 			</section>
@@ -91,8 +69,7 @@
 						<div class="col-md-4">
 							<div class="card mb-4 box-shadow">
 								<a href="https://request.itch.io/the-tall-wall-falls">
-									<!-- https://blog.theodo.com/2018/01/responsive-iframes-css-trick/. Padding top is related to the default YouTube aspect ratio (height 9 / width 16)-->
-									<div style="position:relative;padding-top:56.25%">
+									<div class="card-video">
 										<iframe src="https://www.youtube-nocookie.com/embed/k7s1SDXwANE" frameborder="0" 
 											allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen 
 											style="position:absolute;top:0;left:0;width:100%;height:100%;" ></iframe>
@@ -139,8 +116,7 @@
 						<div class="col-md-4">
 							<div class="card mb-4 box-shadow">
 								<a href="https://request.itch.io/a-vr-game-about-magic-and-ducks-in-cosplay">
-									<!-- https://blog.theodo.com/2018/01/responsive-iframes-css-trick/. Padding top is related to the default YouTube aspect ratio (height 9 / width 16)-->
-									<div style="position:relative;padding-top:56.25%">
+									<div class="card-video">
 										<iframe src="https://www.youtube-nocookie.com/embed/6KbahI1Ofao" frameborder="0" 
 											allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
 											allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" ></iframe>
