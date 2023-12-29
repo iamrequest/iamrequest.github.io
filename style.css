@@ -19,6 +19,10 @@
     padding: 1rem;
 }
 
+.main-item {
+	margin: auto;
+}
+
 .card-album {
     padding-top: 0px;
 }
