@@ -3,6 +3,11 @@
     height: 1em;
 }
 
+.logo-2x {
+    width: 2em;
+    height: 2em;
+}
+
 .header_url {
     padding-left: 1em;
     padding-right: 1em;
