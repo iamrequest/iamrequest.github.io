@@ -1,3 +1,50 @@
+:root {
+	--container-width: 1000PX;
+}
+
+body {
+	height: 100%;
+    margin: 0;
+    background-image: url("images/num.gif");
+    background-repeat: repeat;
+    background-attachment: fixed;
+}
+
+.main-container {
+	max-width: var(--container-width);
+	margin: auto;
+	padding: 1em;
+}
+
+.sub-container {
+	background: #32383e;
+	margin: 0em;
+	text-align: center;
+	flex-grow: 1;
+}
+
+.sub-container-header {
+	background-color: #D7574E;
+	background: linear-gradient(0deg, rgba(215, 87, 78, 1) 0%, rgba(255, 240, 107, 1) 100%);
+}
+
+.sub-container-body{
+}
+
+.header-container {
+	display: flex;
+}
+
+.header-image-container {
+	margin-left: 1em;
+	flex-grow: 1;
+}
+
+.body-container {
+	display: flex;
+	margin-top: 1em;
+}
+
 .logo {
     width: 1em;
     height: 1em;
@@ -8,9 +55,15 @@
     height: 2em;
 }
 
+.header-logo {
+	margin: auto;
+	max-width: 700px;
+}
+
 .header_url {
-    padding-left: 1em;
-    padding-right: 1em;
+    padding: 0.5em 1em;
+	margin: 0.5em;
+	display: block;
 }
 
 @media (min-width: 1200px) {
