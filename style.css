@@ -12,17 +12,37 @@ body {
 	background-blend-mode: hard-light;
 }
 
-/* Core */
-.main-container {
+/* Wrappers */
+#page-wrapper {
 	max-width: var(--container-width);
 	margin: auto;
 	padding: 1em;
 }
 
-.sub-container {
+#logo-and-music-wrapper {
+	display: flex;
+}
+
+#body-wrapper{
+	display: flex;
+	margin-top: 1em;
+}
+
+
+/* Core */
+.item-container {
 	background: #32383e;
 	margin: 0em;
 	flex-grow: 1;
+}
+
+.item-container-header {
+	background-color: #D7574E;
+	background: linear-gradient(0deg, rgba(215, 87, 78, 1) 0%, rgba(255, 240, 107, 1) 100%);
+}
+
+.item-container-body{
+	padding: 1em;
 }
 
 .header-text {
@@ -39,7 +59,24 @@ body {
 	color: white;
 }
 
-p.header-body-text {
+
+
+/* Logo */
+.logo-container {
+	margin-left: 1em;
+	flex-grow: 1;
+}
+
+.logo-container-body {
+	text-align: center;
+}
+
+.header-subtext {
+	font-weight: 500;
+	font-size-adjust: 0.6;
+}
+
+.logo-text {
 	display: inline-block;
 
 	font-family: "Press Start 2P", system-ui;
@@ -49,54 +86,35 @@ p.header-body-text {
 	margin-bottom: 0px;
 }
 
-
-.sub-container-header {
-	background-color: #D7574E;
-	background: linear-gradient(0deg, rgba(215, 87, 78, 1) 0%, rgba(255, 240, 107, 1) 100%);
-}
-
-.sub-container-body{
-	padding: 1em;
-}
-
-
-/* Header */
-.header-and-link-container {
-	display: flex;
-}
-
-.header-container-body {
-	text-align: center;
-}
-
-.header-subtext {
-	font-weight: 500;
-	font-size-adjust: 0.6;
-}
-
-.header-image-container {
-	margin-left: 1em;
-	flex-grow: 1;
-}
-
 .header-logo {
-	width: inherit;
+	max-width: 100%;
 }
 
 
+/* Music Sidebar */
+.music-container-body {
+	height: 100%;
+}
 
-/* Link Sidebar */
-.link-container-body {
-	padding: 1rem 0.5rem;
 
-	text-align: center;
+/* Links */
+.link-container {
 	font-family: "Press Start 2P", system-ui;
   	font-style: normal;
 }
 
+.link-group {
+	display:flex;
+	justify-content: space-evenly;
+	margin-bottom: 0.5em;
+}
+
+.link-group-title {
+	margin-top: 1.5em;
+}
+
 .link-url {
-	display: block;
-	color: #fbe068;
+	COLOR: #fbe068;
 	text-decoration: underline;
 }
 
@@ -112,11 +130,6 @@ p.header-body-text {
 
 
 /* Main content */
-.body-container {
-	display: flex;
-	margin-top: 1em;
-}
-
 .item-title {
     color: #e8e8e8;
 }
