@@ -14,42 +14,44 @@
 		<!-- Local CSS -->
 		<link rel="stylesheet" href="./style.css" />
 
+		<!-- Font -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P">
+
 		<title>made by request</title>
 
 	</head>
 	<body>
 	<div class="main-container">
-	<div class="header-container">
+	<div class="header-and-link-container">
 		<!-- Sidebar -->
 		<div class="sub-container">
 			<header class="sub-container-header">
-				<div class="navbar">
-					<a href="#" class="nav-link active">
-						<strong>Links</strong>
-					</a>
-				</div>
+				<span class="header-text">Links</span>
 			</header>
 
-			<div class="sub-container-body">
-				<!-- TODO: Redo these buttons -->
-				<a class="header_url" href="https://bsky.app/profile/request.moe">
-					<img class="logo-2x" src="images/bsky_logo.png" />
-					Bluesky	
+			<div class="sub-container-body link-container-body">
+				<a class="link-url" href="music.html">
+					Music
 				</a>
-				<a class="header_url" href="https://request.itch.io">
-					<img class="logo" src="images/itch-io_logo.svg" />
+				<a class="link-url" href="music.html">
+					Postmortems
+				</a>
+
+				<hr class="link-hr" />
+
+				<a class="link-url" href="https://bsky.app/profile/request.moe">
+					Bluesky
+				</a>
+				<a class="link-url" href="https://request.itch.io">
 					Itch.io
 				</a>
-				<a class="header_url" href="https://github.com/iamrequest">
-					<img class="logo" src="images/github_logo.png" />
+				<a class="link-url" href="https://github.com/iamrequest">
 					Github
 				</a>
-				<a class="header_url" href="https://opengameart.org/users/request">
-        	        <img class="logo" src="images/opengameart_logo.png" />
+				<a class="link-url" href="https://opengameart.org/users/request">
         	        OpenGameArt
         	    </a>
-				<a class="header_url" href="https://request.bandcamp.com">
-        	        <img class="logo" src="images/bandcamp-button-circle-line-white-32.png" />
+				<a class="link-url" href="https://request.bandcamp.com">
         	        Bandcamp
         	    </a>
 			</div>
@@ -57,26 +59,16 @@
 
 		<div class="sub-container header-image-container">
 			<header class="sub-container-header">
-				<div class="navbar">
-					<div class="container d-flex justify-content-between">
-						<a href="#" class="navbar-brand d-flex align-items-center">
-							<strong>made by request</strong>
-							<span style="padding-left:1ch">made with love</span>
-						</a>
-
-						<nav class="nav nav-masthead float-md-end">
-							<a class="nav-link active" aria-current="page" href="index.html">Games</a>
-							<a class="nav-link" aria-current="page" href="music.html">Music</a>
-						</nav>
-					</div>
-				</div>
+				<span class="header-text">
+					<strong>Made by request</strong>
+					<span class="header-subtext">made with love</span>
+				</span>
 			</header>
 
-			<div class="sub-container-body">
+			<div class="sub-container-body header-container-body">
 				<div class="container">
 					<img class="header-logo" src="images/request-moe.png"/>
-					<p class="lead text-muted">I push buttons, and sometimes I make VR games. Check out the games I've worked on:</p>
-
+					<p class="header-body-text">I push buttons, and I make free + open source virtual reality games</p>
 				</div>
 			</div>
 		</div>
@@ -86,43 +78,11 @@
 
 		<div class="sub-container">
 			<header class="sub-container-header">
-				<div class="navbar">
-					<div class="container d-flex justify-content-between">
-						<a href="#" class="navbar-brand d-flex align-items-center nav-link active ">
-							<strong>Games</strong>
-						</a>
-					</div>
-				</div>
+				<span class="header-text">Games</span>
 			</header>
 
-			<div class="album card-album">
+			<div class="sub-container-body ">
 				<div class="container">
-					<!-- Highlighted -->
-					<!--
-					<div class="row">
-						<div class="col-md-6 main-item">
-							<div class="card mb-6 box-shadow">
-								<a href="https://store.steampowered.com/app/886250/Vegas_Infinite_by_PokerStars/">
-									<img class="card-img-top" src="https://cdn.akamai.steamstatic.com/steam/apps/886250/header.jpg?t=1702747783" alt="Vegas Infinite Cover Art">
-								</a>
-								<div class="card-body">
-									<strong class="card-text item-title">Vegas Infinite</strong>
-									<p class="card-text">Card Text</p>
-									<div class="d-flex justify-content-between align-items-center">
-										<div class="btn-group">
-											<a href="https://www.vegasinfinite.com/" class="btn btn-sm btn-outline-secondary item-url">Website</a>
-											<a href="https://store.steampowered.com/app/886250/Vegas_Infinite_by_PokerStars/" class="btn btn-sm btn-outline-secondary item-url">Steam</a>
-											<a href="https://youtu.be/inJ80HaJqQw?si=QoXCVQt19nMm2Don" class="btn btn-sm btn-outline-secondary item-url">PC NonVR Trailer</a>
-											<a href="https://youtu.be/kEeUFcuv9Ek?si=ke8CIFC3Vc7RH0-j" class="btn btn-sm btn-outline-secondary item-url">Android Trailer</a>
-										</div>
-										<small class="text-muted">PCVR, NonVR</small>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					-->
-
 					<!-- Everything else -->
 					<div class="row">
 						<!-- Vegas Infinite -->
@@ -138,7 +98,7 @@
 										<div class="btn-group">
 											<a href="https://www.vegasinfinite.com/" class="btn btn-sm btn-outline-secondary item-url">Website</a>
 											<a href="https://store.steampowered.com/app/886250/Vegas_Infinite_by_PokerStars/" class="btn btn-sm btn-outline-secondary item-url">Steam</a>
-											<a href="https://youtu.be/inJ80HaJqQw?si=QoXCVQt19nMm2Don" class="btn btn-sm btn-outline-secondary item-url">PC NonVR Trailer</a>
+											<a href="https://youtu.be/inJ80HaJqQw?si=QoXCVQt19nMm2Don" class="btn btn-sm btn-outline-secondary item-url">NonVR Trailer</a>
 											<a href="https://youtu.be/kEeUFcuv9Ek?si=ke8CIFC3Vc7RH0-j" class="btn btn-sm btn-outline-secondary item-url">Android Trailer</a>
 										</div>
 									</div>
@@ -161,7 +121,6 @@
 											<a href="https://github.com/iamrequest/hellrot-vr" class="btn btn-sm btn-outline-secondary item-url">Github</a>
 											<a href="https://github.com/iamrequest/hellrot-vr/blob/master/postmortem.md" class="btn btn-sm btn-outline-secondary item-url">Postmortem</a>
 										</div>
-										<small class="text-muted">PCVR</small>
 									</div>
 								</div>
 							</div>
@@ -182,7 +141,6 @@
 											<a href="https://github.com/iamrequest/solar-automaton" class="btn btn-sm btn-outline-secondary item-url">Github</a>
 											<a href="https://github.com/iamrequest/solar-automaton/blob/master/postmortem.md" class="btn btn-sm btn-outline-secondary item-url">Postmortem</a>
 										</div>
-										<small class="text-muted">PCVR</small>
 									</div>
 								</div>
 							</div>
@@ -204,7 +162,6 @@
 											<a href="https://github.com/iamrequest/disco-queen-dancing-fever/blob/master/postmortem.md" class="btn btn-sm btn-outline-secondary item-url">Postmortem</a>
 											<a href="https://youtu.be/peTfxC8ggs4" class="btn btn-sm btn-outline-secondary item-url">Trailer</a>
 										</div>
-										<small class="text-muted">PCVR</small>
 									</div>
 								</div>
 							</div>
@@ -225,7 +182,6 @@
 											<a href="https://github.com/iamrequest/curse-of-the-pinyaata" class="btn btn-sm btn-outline-secondary item-url">Github</a>
 											<a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/master/postmortem.md" class="btn btn-sm btn-outline-secondary item-url">Postmortem</a>
 										</div>
-										<small class="text-muted">PCVR</small>
 									</div>
 								</div>
 							</div>
@@ -246,7 +202,6 @@
 											<a href="https://github.com/iamrequest/robo-photographvr" class="btn btn-sm btn-outline-secondary item-url">Github</a>
 											<a href="https://github.com/iamrequest/robo-photographvr/blob/master/postmortem.md" class="btn btn-sm btn-outline-secondary item-url">Postmortem</a>
 										</div>
-										<small class="text-muted">PCVR</small>
 									</div>
 								</div>
 							</div>
@@ -268,7 +223,6 @@
 											<a href="https://github.com/iamrequest/shattered-skies/blob/master/postmortem.md" class="btn btn-sm btn-outline-secondary item-url">Postmortem</a>
 											<a href="https://youtu.be/3dnDbHYYLkc" class="btn btn-sm btn-outline-secondary item-url">Trailer</a>
 										</div>
-										<small class="text-muted">PCVR</small>
 									</div>
 								</div>
 							</div>
@@ -290,7 +244,6 @@
 											<a href="https://github.com/iamrequest/timber-rhythm/blob/master/postmortem.md" class="btn btn-sm btn-outline-secondary item-url">Postmortem</a>
 											<a href="https://youtu.be/NNHk02ejphM" class="btn btn-sm btn-outline-secondary item-url">Trailer</a>
 										</div>
-										<small class="text-muted">PCVR</small>
 									</div>
 								</div>
 							</div>
@@ -312,7 +265,6 @@
 											<a href="https://github.com/iamrequest/the-tall-wall-falls/blob/master/postmortem.md" class="btn btn-sm btn-outline-secondary item-url">Postmortem</a>
 											<a href="https://www.youtube.com/watch?v=k7s1SDXwANE" class="btn btn-sm btn-outline-secondary item-url">Trailer</a>
 										</div>
-										<small class="text-muted">PCVR</small>
 									</div>
 								</div>
 							</div>
@@ -333,7 +285,6 @@
 											<a href="https://github.com/iamrequest/vampire-shark-attack" class="btn btn-sm btn-outline-secondary item-url">Github</a>
 											<a href="https://github.com/iamrequest/vampire-shark-attack/blob/master/postmortem.md" class="btn btn-sm btn-outline-secondary item-url">Postmortem</a>
 										</div>
-										<small class="text-muted">PCVR</small>
 									</div>
 								</div>
 							</div>
@@ -353,7 +304,6 @@
 											<a href="https://github.com/iamrequest/a-vr-game-about-magic-and-ducks-in-cosplay" class="btn btn-sm btn-outline-secondary item-url">Github</a>
 											<a href="https://www.youtube.com/watch?v=6KbahI1Ofao" class="btn btn-sm btn-outline-secondary item-url">Trailer</a>
 										</div>
-										<small class="text-muted">PCVR</small>
 									</div>
 								</div>
 							</div>
@@ -373,7 +323,6 @@
 											<a href="https://request.itch.io/a-vr-game-about-ducks-in-capitalism" class="btn btn-sm btn-outline-secondary item-url">itch.io</a>
 											<a href="https://github.com/iamrequest/a-vr-game-about-ducks-in-capitalism" class="btn btn-sm btn-outline-secondary item-url">Github</a>
 										</div>
-										<small class="text-muted">PCVR</small>
 									</div>
 								</div>
 							</div>
@@ -402,7 +351,6 @@
 											<a href="https://request.itch.io/doom-cat" class="btn btn-sm btn-outline-secondary item-url">itch.io</a>
 											<a href="https://github.com/iamrequest/doomcat" class="btn btn-sm btn-outline-secondary item-url">Github</a>
 										</div>
-										<small class="text-muted">NonVR</small>
 									</div>
 								</div>
 							</div>
@@ -422,7 +370,6 @@
 											<a href="https://request.itch.io/blasty-boy" class="btn btn-sm btn-outline-secondary item-url">itch.io</a>
 											<a href="https://github.com/iamrequest/blastyboy" class="btn btn-sm btn-outline-secondary item-url">Github</a>
 										</div>
-										<small class="text-muted">PCVR</small>
 									</div>
 								</div>
 							</div>

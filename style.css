@@ -8,8 +8,11 @@ body {
     background-image: url("images/num.gif");
     background-repeat: repeat;
     background-attachment: fixed;
+	background-color: #a29444;
+	background-blend-mode: hard-light;
 }
 
+/* Core */
 .main-container {
 	max-width: var(--container-width);
 	margin: auto;
@@ -19,9 +22,33 @@ body {
 .sub-container {
 	background: #32383e;
 	margin: 0em;
-	text-align: center;
 	flex-grow: 1;
 }
+
+.header-text {
+	display: inline-block;
+	border-bottom: .25rem solid white;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+
+	margin: 0 1rem;
+	padding: 0.6rem 0.75rem 0.3rem;
+
+	font-family: "Press Start 2P", system-ui;
+	font-weight: 1000;
+  	font-style: normal;
+	color: white;
+}
+
+p.header-body-text {
+	display: inline-block;
+
+	font-family: "Press Start 2P", system-ui;
+  	font-style: normal;
+	font-size-adjust: 0.5;
+	color: white;
+	margin-bottom: 0px;
+}
+
 
 .sub-container-header {
 	background-color: #D7574E;
@@ -29,10 +56,22 @@ body {
 }
 
 .sub-container-body{
+	padding: 1em;
 }
 
-.header-container {
+
+/* Header */
+.header-and-link-container {
 	display: flex;
+}
+
+.header-container-body {
+	text-align: center;
+}
+
+.header-subtext {
+	font-weight: 500;
+	font-size-adjust: 0.6;
 }
 
 .header-image-container {
@@ -40,50 +79,42 @@ body {
 	flex-grow: 1;
 }
 
+.header-logo {
+	width: inherit;
+}
+
+
+
+/* Link Sidebar */
+.link-container-body {
+	padding: 1rem 0.5rem;
+
+	text-align: center;
+	font-family: "Press Start 2P", system-ui;
+  	font-style: normal;
+}
+
+.link-url {
+	display: block;
+	color: #fbe068;
+	text-decoration: underline;
+}
+
+.link-url:hover {
+	color: #db6551;
+}
+
+.link-hr {
+	border-top: 1px dashed #fbe068;
+	margin: 1rem;
+}
+
+
+
+/* Main content */
 .body-container {
 	display: flex;
 	margin-top: 1em;
-}
-
-.logo {
-    width: 1em;
-    height: 1em;
-}
-
-.logo-2x {
-    width: 2em;
-    height: 2em;
-}
-
-.header-logo {
-	margin: auto;
-	max-width: 700px;
-}
-
-.header_url {
-    padding: 0.5em 1em;
-	margin: 0.5em;
-	display: block;
-}
-
-@media (min-width: 1200px) {
-    .container{
-        max-width: 1300px;
-    }
-}
-
-.jumbotron {
-    color: #e8e8e8;
-    padding: 1rem;
-}
-
-.main-item {
-	margin: auto;
-	margin-bottom: 1.5rem;
-}
-
-.card-album {
-    padding-top: 0px;
 }
 
 .item-title {
@@ -94,32 +125,3 @@ body {
     color: #e8e8e8;
 }
 
-.navbar-brand {
-	border-right: 0px;
-}
-
-.navbar .nav-link {
-	/* Remove side borders that come with slate bootstrap theme */
-	border-left: 0px;
-	border-right: 0px;
-
-	padding-bottom: .75rem
-}
-
-.nav-link.active {
-	/* Add more depth to selected navbar link */
-	font-weight: bold;
-	border-bottom: .25rem solid white;
-}
-
-.card-video {
-	/* https://blog.theodo.com/2018/01/responsive-iframes-css-trick/. Padding top is related to the default YouTube aspect ratio */
-	position:relative;
-	padding-top:56.25%;
-}
-
-.center {
-	margin: auto;
-	width: 50%;
-	padding: 10px;
-}
