@@ -1,5 +1,9 @@
 :root {
 	--container-width: 1000PX;
+
+	--link-url-color: #fbe068;
+	--link-url-color-hover: #db6551;
+	--header-font-family: "Press Start 2P", system-ui;
 }
 
 body {
@@ -53,7 +57,7 @@ body {
 	margin: 0 1rem;
 	padding: 0.6rem 0.75rem 0.3rem;
 
-	font-family: "Press Start 2P", system-ui;
+	font-family: var(--header-font-family);
 	font-weight: 1000;
   	font-style: normal;
 	color: white;
@@ -79,7 +83,7 @@ body {
 .logo-text {
 	display: inline-block;
 
-	font-family: "Press Start 2P", system-ui;
+	font-family: var(--header-font-family);
   	font-style: normal;
 	font-size-adjust: 0.5;
 	color: white;
@@ -114,16 +118,16 @@ body {
 }
 
 .link-url {
-	COLOR: #fbe068;
+	color: var(--link-url-color);
 	text-decoration: underline;
 }
 
 .link-url:hover {
-	color: #db6551;
+	color: var(--link-url-color-hover);
 }
 
 .link-hr {
-	border-top: 1px dashed #fbe068;
+	border-top: 1px dashed var(--link-url-color);
 	margin: 1rem;
 }
 
@@ -137,4 +141,3 @@ body {
 .item-url {
     color: #e8e8e8;
 }
-
