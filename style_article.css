@@ -14,6 +14,13 @@
 	margin-bottom: 1em;
 }
 
+.article-container-body pre code { 
+	display: block;
+	background-color: #3e3d3a;
+	border: 1px dashed var(--link-url-color);
+	padding: 1em;
+}
+
 .article-container-body h1:not(:first-child) { 
 	margin-top: 2em;
 }
