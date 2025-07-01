@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+	 	<meta charset="utf-8">
+	 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	 	<!-- Bootstrap CSS -->
+	 	<link href="../../bootstrap.min.css" rel="stylesheet">
+
+		<!-- Bootstrap JS & Popper -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+		<!-- Local CSS -->
+		<link rel="stylesheet" href="../../style.css" />
+		<link rel="stylesheet" href="../../style_article.css" />
+
+		<!-- Font -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P">
+
+		<title>made by request</title>
+
+	</head>
+	<body>
+
+	<div id="page-wrapper">
+	<div id="logo-and-music-wrapper">
+		<!-- Music -->
+		<div class="item-container">
+			<header class="item-container-header">
+				<span class="header-text">Music</span>
+			</header>
+
+			<div class="item-container-body music-container-body">
+				<iframe style="border: 0; width: 300px; height: 500px;" src="https://bandcamp.com/EmbeddedPlayer/album=2458872376/size=large/bgcol=333333/linkcol=e99708/transparent=true/" seamless><a href="https://request.bandcamp.com/album/cloudburst">cloudburst by Request</a></iframe>
+			</div>
+		</div>
+
+		<!-- Logo Container -->
+		<div class="item-container logo-container">
+			<header class="item-container-header">
+				<span class="header-text">
+					<strong>Made by request</strong>
+					<span class="header-subtext">made with love</span>
+				</span>
+			</header>
+
+			<div class="item-container-body logo-container-body">
+				<img class="header-logo" src="../../images/request-moe.png"/>
+				<p class="logo-text">I push buttons, and I make free + open source virtual reality games</p>
+
+
+				<hr class="link-hr" />
+
+				<div class="link-container">
+					<div class="link-group-title">Socials</div>
+
+					<div class="link-group">
+						<a class="link-url" href="https://bsky.app/profile/request.moe">
+							Bluesky
+						</a>
+						<a class="link-url" href="https://request.itch.io">
+							Itch.io
+						</a>
+						<a class="link-url" href="https://github.com/iamrequest">
+							Github
+						</a>
+					</div>
+
+					<div class="link-group">
+						<a class="link-url" href="https://opengameart.org/users/request">
+        	    		    OpenGameArt
+        	    		</a>
+						<a class="link-url" href="https://request.bandcamp.com">
+        	    		    Bandcamp
+        	    		</a>
+					</div>
+
+					<div class="link-group-title">Information</div>
+					<div class="link-group">
+						<a class="link-url" href="../../index.html">
+							Games
+						</a>
+						<a class="link-url" href="../../postmortems.html">
+							Postmortems
+						</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div id="body-wrapper">
+
+		<div class="item-container">
+			<header class="item-container-header">
+				<span class="header-text">Postmortem - Shattered Skies</span>
+			</header>
+
+			<div class="item-container-body article-container-body">
+
+			<h1>Table of Contents</h1>
+			<ul>
+			<li><a href="#toc-1">Interesting things in this project</a></li>
+			<ul>
+			<li><a href="#toc-2">Swords with weight, and stamina in VR</a></li>
+			<li><a href="#toc-3">Final Boss Battle</a></li>
+			<li><a href="#toc-4">Dialog Management</a></li>
+			</ul>
+			<li><a href="#toc-5">Next Steps</a></li>
+			<ul>
+			<li><a href="#toc-6">Animations in Dialog</a></li>
+			<li><a href="#toc-7">Enemy AI: Reacting to damage</a></li>
+			<li><a href="#toc-8">Randomly drop sky shards</a></li>
+			<li><a href="#toc-9">Gameplay Tweaks</a></li>
+			</ul>
+			</ul>
+
+<h1 id="toc-1">Interesting things in this project</h1>
+<h2 id="toc-2">Swords with weight, and stamina in VR</h2>
+<p>In this game, you wield a very large sword to fight enemies. You also have a limited stamina pool, which depletes and regenerates quickly.
+The more you move your sword around, the faster your stamina depletes. The lower your stamina, the harder it is to move your sword around.</p>
+<p>This resource management makes for an interesting game loop - do I sprint up and attack the lizard enemy while its back is turned, or do I wait for it to come closer so I can attack with more stamina?
+It's much harder to block projectiles when you can't lift your sword properly, so how much should the player prioritize defense over raw offense?</p>
+<p>The way that this was implemented was by adjusting the mass of the rigidbody each frame depending on the percentage of stamina the player had available.
+Stamina loss from the sword was calculated based on per-frame velocity, measured at the tip of the sword. </p>
+<p>The weight range of the sword was configured such that the player could wield the sword single-handedly at full stamina, but could barely pick it up at low stamina.
+An unexpected bonus of tweaking the mass of the rigidbody (rather than tweaking the strength of the hand's config joint) was that it prevented the player from abusing the strength of the physics hand, and simply lifting the sword without actually grabbing it.</p>
+<h2 id="toc-3">Final Boss Battle</h2>
+<p>Each enemy's logic was done in Finite State Machines, which are a topic that I've done before in other projects. This one features them in a larger scale - specifically for the final boss. </p>
+<p>The final boss had 3 attacks (summon a portal and rain sky shards on the player, shoot projectiles at the player, and a charge attack), each written up as a different state. The boss also had a main state that would multiplex between these attacks. </p>
+<p>The boss has a timer that must elapse before picking its next attack. If that timer hasn't elapsed yet, the boss will just warp around at random until he's ready to attack. Since the charge attack was the main attack that left him vulnerable, this attack was guaranteed to occur every few times. Otherwise, it was pretty much 50/50 between the other two attacks.</p>
+<p>Another thing worth mentioning is that the rain attack can continue playing while the boss performs other attacks. This was done with a simple coroutine, that would play out over a pre-determined amount of time.</p>
+<p>Finally, the boss gets harder over time, as his health depletes. Most attacks had a range of settings (attack duration, idle duration) that would change as the enemy's health approached zero.</p>
+<h2 id="toc-4">Dialog Management</h2>
+<p>This is something that I've also done in other projects, but I've refactored a bit more for this project.</p>
+<ul>
+<li>Each piece of dialog, and each dialog speaker, is now defined in a scriptable object</li>
+<li>Each dialog speaker has their own default "character typed" SFX, which can be overridden on a per-sentence level</li>
+<li>There is now a customizable pitch range for SFX, which makes dialog sounds a lot less monotonous</li>
+<li>There is now a customizable delay between typing characters of a sentence, which allows for sentences with more weight</li>
+</ul>
+<p>This all made writing dialog much more fluid, and less prone to getting accidentally deleted by accident.</p>
+<h1 id="toc-5">Next Steps</h1>
+<h2 id="toc-6">Animations in Dialog</h2>
+<p>Tying dialog sentences to animations is something that I had implemented for "<a href="https://request.itch.io/a-vr-game-about-ducks-in-capitalism">A VR Game About Ducks in Capitalism</a>", but that solution needed refactoring. </p>
+<p>I think next time, I'll define a set of animations that can play in dialog as part of the Dialog Speaker's scriptable object definition, which can be triggered as part of a Dialog Sentence. On each sentence, a scriptable object event channel could send out events at the start of each Dialog Sentence, which could be picked up by some component on each actor's gameobject. A bit complex, but this way I wouldn't need to directly tie dialog, or dialog managers, to specific Animator components in my scene.</p>
+<h2 id="toc-7">Enemy AI: Reacting to damage</h2>
+<p>Currently, enemies don't change state upon taking damage. This is something I programmed in (ie: change to an attack state when recieving damage if we're in an idle/patrol state), but enemies would often not know where the player was when entering the state.</p>
+<p>This is easily solvable, but it's just another thing to program that I didn't have time for in 7 days.</p>
+<h2 id="toc-8">Randomly drop sky shards</h2>
+<p>All of the sky shards are scripted events that start when the player enters a nearby trigger. I originally wanted them to spawn all over the world at random, dealing fatal damage to anything it collides with. This was just something I didn't have time to work on.</p>
+<h2 id="toc-9">Gameplay Tweaks</h2>
+<ul>
+<li>After recording footage, I realized that it would be more interesting if enemies could see through the metal spikes of the fences. Currently, it's all done as one big collider that enemies can't see through - but this change would force the player to duck out of sight, to avoid enemies. This would be especially interesting during the first and last areas.</li>
+<li>The final boss' shoot attack is pretty easy to dodge if you're paying attention, because it all fires in a straight line at the player's head. If I had more time, I'd add a random initial rotation offset, so that each projectile would arc in a unique angle.</li>
+<li>The lizard enemy's animation could use some tweaking. It feels pretty rigid at times</li>
+<li>The crystal enemy's shooting patterns could stand to be more interesting. They could also use more VFX, since they're just shooting textured cubes at the player right now.</li>
+</ul>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
+

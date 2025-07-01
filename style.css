@@ -1,38 +1,143 @@
-.logo {
-    width: 1em;
-    height: 1em;
+:root {
+	--container-width: 1000PX;
+
+	--link-url-color: #fbe068;
+	--link-url-color-hover: #db6551;
+	--header-font-family: "Press Start 2P", system-ui;
 }
 
-.logo-2x {
-    width: 2em;
-    height: 2em;
+body {
+	height: 100%;
+    margin: 0;
+    background-image: url("images/num.gif");
+    background-repeat: repeat;
+    background-attachment: fixed;
+	background-color: #a29444;
+	background-blend-mode: hard-light;
 }
 
-.header_url {
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
-@media (min-width: 1200px) {
-    .container{
-        max-width: 1300px;
-    }
-}
-
-.jumbotron {
-    color: #e8e8e8;
-    padding: 1rem;
-}
-
-.main-item {
+/* Wrappers */
+#page-wrapper {
+	max-width: var(--container-width);
 	margin: auto;
-	margin-bottom: 1.5rem;
+	padding: 1em;
 }
 
-.card-album {
-    padding-top: 0px;
+#logo-and-music-wrapper {
+	display: flex;
 }
 
+#body-wrapper{
+	display: flex;
+	margin-top: 1em;
+}
+
+
+/* Core */
+.item-container {
+	background: #32383e;
+	margin: 0em;
+	flex-grow: 1;
+}
+
+.item-container-header {
+	background-color: #D7574E;
+	background: linear-gradient(0deg, rgba(215, 87, 78, 1) 0%, rgba(255, 240, 107, 1) 100%);
+}
+
+.item-container-body{
+	padding: 1em;
+}
+
+.header-text {
+	display: inline-block;
+	border-bottom: .25rem solid white;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+
+	margin: 0 1rem;
+	padding: 0.6rem 0.75rem 0.3rem;
+
+	font-family: var(--header-font-family);
+	font-weight: 1000;
+  	font-style: normal;
+	color: white;
+}
+
+
+
+/* Logo */
+.logo-container {
+	margin-left: 1em;
+	flex-grow: 1;
+}
+
+.logo-container-body {
+	text-align: center;
+}
+
+.header-subtext {
+	font-weight: 500;
+	font-size-adjust: 0.6;
+}
+
+.logo-text {
+	display: inline-block;
+
+	font-family: var(--header-font-family);
+  	font-style: normal;
+	font-size-adjust: 0.5;
+	color: white;
+	margin-bottom: 0px;
+}
+
+.header-logo {
+	max-width: 100%;
+}
+
+
+/* Music Sidebar */
+.music-container-body {
+	height: 100%;
+}
+
+
+/* Links */
+.link-container {
+	font-family: "Press Start 2P", system-ui;
+  	font-style: normal;
+}
+
+.link-group {
+	display:flex;
+	justify-content: space-evenly;
+	margin-bottom: 0.5em;
+}
+
+.link-group-title {
+	margin-top: 1.5em;
+}
+
+.link-url {
+	color: var(--link-url-color);
+	text-decoration: underline;
+}
+
+.link-url.active{
+	color: var(--link-url-color-hover);
+}
+
+.link-url:hover {
+	color: var(--link-url-color-hover);
+}
+
+.link-hr {
+	border-top: 1px dashed var(--link-url-color);
+	margin: 1rem;
+}
+
+
+
+/* Main content */
 .item-title {
     color: #e8e8e8;
 }
@@ -41,32 +146,11 @@
     color: #e8e8e8;
 }
 
-.navbar-brand {
-	border-right: 0px;
-}
-
-.navbar .nav-link {
-	/* Remove side borders that come with slate bootstrap theme */
-	border-left: 0px;
-	border-right: 0px;
-
-	padding-bottom: .75rem
-}
-
-.nav-link.active {
-	/* Add more depth to selected navbar link */
-	font-weight: bold;
-	border-bottom: .25rem solid white;
-}
-
-.card-video {
-	/* https://blog.theodo.com/2018/01/responsive-iframes-css-trick/. Padding top is related to the default YouTube aspect ratio */
-	position:relative;
-	padding-top:56.25%;
-}
-
-.center {
-	margin: auto;
-	width: 50%;
-	padding: 10px;
+/* Postmortem */
+.article-card {
+	display: flex;
+	margin: 1em;
+	padding: 1em;
+	border: 1px dashed var(--link-url-color);
+	border-radius: 10px;
 }
