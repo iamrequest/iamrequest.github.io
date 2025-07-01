@@ -122,6 +122,10 @@ body {
 	text-decoration: underline;
 }
 
+.link-url.active{
+	color: var(--link-url-color-hover);
+}
+
 .link-url:hover {
 	color: var(--link-url-color-hover);
 }
@@ -140,4 +144,13 @@ body {
 
 .item-url {
     color: #e8e8e8;
+}
+
+/* Postmortem */
+.article-card {
+	display: flex;
+	margin: 1em;
+	padding: 1em;
+	border: 1px dashed var(--link-url-color);
+	border-radius: 10px;
 }
