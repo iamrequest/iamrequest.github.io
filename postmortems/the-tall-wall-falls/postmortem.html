@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+	 	<meta charset="utf-8">
+	 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	 	<!-- Bootstrap CSS -->
+	 	<link href="../../bootstrap.min.css" rel="stylesheet">
+
+		<!-- Bootstrap JS & Popper -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+		<!-- Local CSS -->
+		<link rel="stylesheet" href="../../style.css" />
+		<link rel="stylesheet" href="../../style_article.css" />
+
+		<!-- Font -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P">
+
+		<title>made by request</title>
+
+	</head>
+	<body>
+
+	<div id="page-wrapper">
+	<div id="logo-and-music-wrapper">
+		<!-- Music -->
+		<div class="item-container">
+			<header class="item-container-header">
+				<span class="header-text">Music</span>
+			</header>
+
+			<div class="item-container-body music-container-body">
+				<iframe style="border: 0; width: 300px; height: 500px;" src="https://bandcamp.com/EmbeddedPlayer/album=2458872376/size=large/bgcol=333333/linkcol=e99708/transparent=true/" seamless><a href="https://request.bandcamp.com/album/cloudburst">cloudburst by Request</a></iframe>
+			</div>
+		</div>
+
+		<!-- Logo Container -->
+		<div class="item-container logo-container">
+			<header class="item-container-header">
+				<span class="header-text">
+					<strong>Made by request</strong>
+					<span class="header-subtext">made with love</span>
+				</span>
+			</header>
+
+			<div class="item-container-body logo-container-body">
+				<img class="header-logo" src="../../images/request-moe.png"/>
+				<p class="logo-text">I push buttons, and I make free + open source virtual reality games</p>
+
+
+				<hr class="link-hr" />
+
+				<div class="link-container">
+					<div class="link-group-title">Socials</div>
+
+					<div class="link-group">
+						<a class="link-url" href="https://bsky.app/profile/request.moe">
+							Bluesky
+						</a>
+						<a class="link-url" href="https://request.itch.io">
+							Itch.io
+						</a>
+						<a class="link-url" href="https://github.com/iamrequest">
+							Github
+						</a>
+					</div>
+
+					<div class="link-group">
+						<a class="link-url" href="https://opengameart.org/users/request">
+        	    		    OpenGameArt
+        	    		</a>
+						<a class="link-url" href="https://request.bandcamp.com">
+        	    		    Bandcamp
+        	    		</a>
+					</div>
+
+					<div class="link-group-title">Information</div>
+					<div class="link-group">
+						<a class="link-url" href="../../index.html">
+							Games
+						</a>
+						<a class="link-url" href="../../postmortems.html">
+							Postmortems
+						</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div id="body-wrapper">
+
+		<div class="item-container">
+			<header class="item-container-header">
+				<span class="header-text">Postmortem - The Tall Wall Falls</span>
+			</header>
+
+			<div class="item-container-body article-container-body">
+
+			<h1>Table of Contents</h1>
+			<ul>
+			<li><a href="#toc-1">Some topics of interest in this project</a></li>
+			<ul>
+			<li><a href="#toc-2">Rigidbody-based character controller</a></li>
+			<li><a href="#toc-3">Cool Jumping</a></li>
+			<li><a href="#toc-4">Grapple Hooks</a></li>
+			<li><a href="#toc-5">Physics Hands, whose transforms are primarially driven by Configurable Joints.</a></li>
+			<li><a href="#toc-6">Using Shapes to render the grapple hook ropes</a></li>
+			<li><a href="#toc-7">Interactable Settings Menu</a></li>
+			<li><a href="#toc-8">ScriptableObject Event Channels</a></li>
+			<li><a href="#toc-9">Bigraph-based enemy navigation</a></li>
+			</ul>
+			<li><a href="#toc-10">Next Steps</a></li>
+			<ul>
+			<li><a href="#toc-11">Physics Hands Config Joint Settings / Rotation Lerp Smothing</a></li>
+			<li><a href="#toc-12">Enemy spline walking</a></li>
+			<li><a href="#toc-13">VFX and Shaders</a></li>
+			</ul>
+			</ul>
+
+<h1 id="toc-1">Some topics of interest in this project</h1>
+<p>This project was an experiment in a VR physics-based character controller.
+Nausia prevention was the first thing I wanted to target, which is why I added the vignette and speed lines early (with settings to adjust the intensity). </p>
+<h2 id="toc-2">Rigidbody-based character controller</h2>
+<p>This one was a bit challenging since I'm used to Character Controller rigs. I wanted the player to have snappy movement on the ground (achieved via changing the physics material on the player Rigidbody if the player is moving), and lots of control in the air (achieved by an <a href="https://docs.unity3d.com/ScriptReference/ForceMode.html">acceleration ForceMode</a>).
+The latter probably should've been changed to ForceMode.Force instead of ForceMode.Acceleration, but I found it was much easier to target the enemies from midair with the extra control.</p>
+<h2 id="toc-3">Cool Jumping</h2>
+<p>A Rigidbody-based character controller also made jumping more interesting. Since I was already counting my collisions to detect if I was on the ground, it was easy to sum up the normals of my ground collisions so that the player jumps parallel to the ground normal (see also: <a href="https://catlikecoding.com/unity/tutorials/movement/physics/">CatlikeCoding - Physics</a>).
+This change also made wall jumps super easy, since they worked pretty much the same way.</p>
+<p>As part of this character controller, I also implemented <a href="https://developer.amazon.com/blogs/appstore/post/9d2094ed-53cb-4a3a-a5cf-c7f34bca6cd3/coding-imprecise-controls-to-make-them-feel-more-precise">Coyote Time</a>, by caching my ground/wall normals for a few frames, or until the player touches ground/walls next.</p>
+<h2 id="toc-4">Grapple Hooks</h2>
+<p>Whereas the grapple stuff in my previous project (<a href="https://github.com/iamrequest/blastyboy/">Blasty Boy</a>) was done via a simple CharacterController lerp position, I instantiate SpringJoints whenever the grapple hook collides with a Collider that has a Rigidbody. These spring joints have a high spring value, to make the ropes more rigid at distance, which came with the downside of springy behaviour.
+To achieve rope-like physics, I adjusted the spring joint's maxDistance. As long as the distance between the player and the joint's remote anchor is less than the maxDistance, no joint force is applied. To pull the player towards the remote anchor, I simply reduced springJoint.maxDistance over time towards 0.</p>
+<p>In order to prevent physics jankyness, I connect the ConfigurableJoint from the target rigidbody to the player's main rigidbody. Then, I set the local anchor position to match that of the player's true hand. This way, any freak-outs of the physics hand do not end up affecting the player's rope.</p>
+<h2 id="toc-5">Physics Hands, whose transforms are primarially driven by Configurable Joints.</h2>
+<p>In lieu of hand models, I decided to just have sword models for player hands. These gameobjects have rigidbodies, and are bound to the player's main rigidbody (The one on the [CameraRig] gameobject) via a pair of ConfigurableJoints (see also: <a href="https://wirewhiz.com/making-half-life-alyx-physics-hands-in-unity/">WireWhiz - Half Life Alyx Hands</a>).
+I wasn't able to tweak the configurable joint's settings to the point where they would stay steady with no collisions, so I had to stabilize the sword's rotations via a <a href="https://github.com/iamrequest/the-tall-wall-falls/blob/master/Assets/Scripts/VRPlayer/PhysicsHand.cs">simple lerp script</a> when the swords weren't touching anything. More details later on.</p>
+<h2 id="toc-6">Using Shapes to render the grapple hook ropes</h2>
+<p>I could've used a LineRenderer to render the grapple ropes instead of using <a href="https://assetstore.unity.com/packages/tools/particles-effects/shapes-173167">Shapes</a>, but I wanted an opportunity to try it out!</p>
+<p>The basic concept of rendering the ropes comes in 3 steps:</p>
+<ol>
+<li>Define a bezier spline consisting of 4 points (start/end points, and 2 control points). The start and end points are bound to the start of the rope renderer, and to the grapple hook projectile.</li>
+<li>I manually define forward/backwards, and left/right offsets for each of the 2 control points. Over the lifetime of the projectile's flight, I lerp towards/from those values.</li>
+<li>Finally, once I have my spline defined, I use Shapes.PolyLine to approximate the spline shape. I pick ~32 points along the spline, and place the PolyLine's points at those spline points.</li>
+</ol>
+<p>I also adjust the color of the PolyLine from white to red, where a red color means that the rope is at max distance. This is done via a simple lerp, comparing the player's distance from the projectile position to the spring joint's max distance.</p>
+<h2 id="toc-7">Interactable Settings Menu</h2>
+<p>In this project, I added a simple settings menu that featured touch-able buttons, grabbable sliders, and a tab-based page system. This was mostly for adjusting comfort settings, but I ended up using it to drive the game state and difficulty as well.
+The end product could use some polish, but it worked out just fine for what I needed.</p>
+<h2 id="toc-8">ScriptableObject Event Channels</h2>
+<p>This was a trick I picked up from a <a href="https://youtu.be/WLDgtRNK2VE?t=255">Unity Devlog</a>. The idea is to define UnityEvents in your ScriptableObjects, and reference the ScriptableObject in your scripts.
+This way, the scriptable objects act as a delegate, and will help decouple your classes. For example, my VignetteManager class didn't need any direct reference to my SettingsManager class. Whenever the player enabled/disabled the vignette settings menu option, an event would be raised in the scriptable object. Both classes referenced the scriptable object instead.
+This made testing individual components super easy later on.</p>
+<h2 id="toc-9">Bigraph-based enemy navigation</h2>
+<p>I needed a way for the enemies to spawn at one end of the field, and navigate to the gate, in such a way that they would get close enough to the buildings to allow for interesting player-interactivity.
+The solution I came up with was to create a <a href="https://en.wikipedia.org/wiki/Bigraph">bigraph</a>, that enemies could depth-first search to find a random path to the gate.
+To make their pathing between nodes more interesting, I defined bezier splines at each node that would bridge to the next node. Once the enemy had decided on a path, I stitched each sub-spline into one large spline, which the enemy would use for navigation.</p>
+<p>Each enemy would walk the entirety of the stitched spline over the course of X seconds (configurable in the settings menu), plus/minus a random percetange offset.</p>
+<h1 id="toc-10">Next Steps</h1>
+<h2 id="toc-11">Physics Hands Config Joint Settings / Rotation Lerp Smothing</h2>
+<p>This turned out ok - the swords would still freak out a bit when they were in contact with some other rigidbody. If I had more time, I would consider tweaking the settings more, and maybe just lerp the physics hand transform towards the true hand at all times.</p>
+<h2 id="toc-12">Enemy spline walking</h2>
+<p>The main issue with spline walking is that the amount of time it takes to walk each sub-spline (ie: from node A to node B) is the same.
+Consider the scenario with 3 nodes (A, B, C), where A-&gt;B is 9 meters apart, and B-&gt;C is 1 meter apart: Due to how my BezierSpline implementation is calculated, BezierSpline.GetPoint(0.5f) would return the position of B. Pretty sure that's the issue anyways, it was late when I was debugging that part.
+The simple fix to this, would be to add more intermediate nodes, all at approximately the same distance from one-another.</p>
+<p>The second issue with my spline stitching, is that my stitched spline did not have a continuous velocity. This was due to my setting my control points to Free mode, rather than Mirrored or Aligned. When I tried altering the control point nodes, the sub-spline paths would get pulled around to the point where they would collide with world geometry. Not a problem, since everything is kinematic, but it looked pretty bad.
+To fix this, I would again, add more intermediate nodes. That would probably fix the issue.</p>
+<p>I would also spend more time creating a custom inspector to add+manage nodes. Creating a circular graph, or orphan nodes, was all too easy when the graph was created by hand.</p>
+<h2 id="toc-13">VFX and Shaders</h2>
+<p>I've been working with the Visual Effect Graph, and the Shader Graph lately. If I had more time, I would've added simple VFX for the grapple hook and the sword. Adding an outline shader to the enemies to make them stand out would've been cool too, but getting a depth texture based outline shader probably isn't possible via VR, since each eye renders a separate depth texture. Maybe possible if I add a second camera on the player's head, and I use that depth texture instead somehow?</p>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
+

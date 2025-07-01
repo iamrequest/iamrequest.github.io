@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+	 	<meta charset="utf-8">
+	 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	 	<!-- Bootstrap CSS -->
+	 	<link href="../../bootstrap.min.css" rel="stylesheet">
+
+		<!-- Bootstrap JS & Popper -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+		<!-- Local CSS -->
+		<link rel="stylesheet" href="../../style.css" />
+		<link rel="stylesheet" href="../../style_article.css" />
+
+		<!-- Font -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P">
+
+		<title>made by request</title>
+
+	</head>
+	<body>
+
+	<div id="page-wrapper">
+	<div id="logo-and-music-wrapper">
+		<!-- Music -->
+		<div class="item-container">
+			<header class="item-container-header">
+				<span class="header-text">Music</span>
+			</header>
+
+			<div class="item-container-body music-container-body">
+				<iframe style="border: 0; width: 300px; height: 500px;" src="https://bandcamp.com/EmbeddedPlayer/album=2458872376/size=large/bgcol=333333/linkcol=e99708/transparent=true/" seamless><a href="https://request.bandcamp.com/album/cloudburst">cloudburst by Request</a></iframe>
+			</div>
+		</div>
+
+		<!-- Logo Container -->
+		<div class="item-container logo-container">
+			<header class="item-container-header">
+				<span class="header-text">
+					<strong>Made by request</strong>
+					<span class="header-subtext">made with love</span>
+				</span>
+			</header>
+
+			<div class="item-container-body logo-container-body">
+				<img class="header-logo" src="../../images/request-moe.png"/>
+				<p class="logo-text">I push buttons, and I make free + open source virtual reality games</p>
+
+
+				<hr class="link-hr" />
+
+				<div class="link-container">
+					<div class="link-group-title">Socials</div>
+
+					<div class="link-group">
+						<a class="link-url" href="https://bsky.app/profile/request.moe">
+							Bluesky
+						</a>
+						<a class="link-url" href="https://request.itch.io">
+							Itch.io
+						</a>
+						<a class="link-url" href="https://github.com/iamrequest">
+							Github
+						</a>
+					</div>
+
+					<div class="link-group">
+						<a class="link-url" href="https://opengameart.org/users/request">
+        	    		    OpenGameArt
+        	    		</a>
+						<a class="link-url" href="https://request.bandcamp.com">
+        	    		    Bandcamp
+        	    		</a>
+					</div>
+
+					<div class="link-group-title">Information</div>
+					<div class="link-group">
+						<a class="link-url" href="../../index.html">
+							Games
+						</a>
+						<a class="link-url" href="../../postmortems.html">
+							Postmortems
+						</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div id="body-wrapper">
+
+		<div class="item-container">
+			<header class="item-container-header">
+				<span class="header-text">Postmortem - Timber Rhythm</span>
+			</header>
+
+			<div class="item-container-body article-container-body">
+
+			<h1>Table of Contents</h1>
+			<ul>
+			<li><a href="#toc-1">Some topics of interest in this project</a></li>
+			<ul>
+			<li><a href="#toc-2">The Loop Machine: Infrastructure</a></li>
+			<li><a href="#toc-3">The Loop Machine: Recording and Replaying Notes</a></li>
+			<li><a href="#toc-4">Recording note samples, and formatting the filenames for ease of use</a></li>
+			<li><a href="#toc-5">Using ScriptableObjects to store Sustained Note references</a></li>
+			<li><a href="#toc-6">Note VFX Events</a></li>
+			<li><a href="#toc-7">UI, and Physics Buttons</a></li>
+			</ul>
+			<li><a href="#toc-8">Next Steps</a></li>
+			<ul>
+			<li><a href="#toc-9">Better Drums</a></li>
+			<li><a href="#toc-10">Better recording, and recording playback</a></li>
+			<li><a href="#toc-11">Section Swapping</a></li>
+			</ul>
+			</ul>
+<h1 id="toc-1">Some topics of interest in this project</h1>
+<p>The main goals going into this project were:</p>
+<ol>
+<li>Make something small-scale using Hurricane VR, to get familiar with it. </li>
+<li>Make something that wasn't centered around combat/violence (I needed a break from the genre)</li>
+<li>Implement a physics-based drumset (not fully realized)</li>
+<li>Implement a loop machine, which would record and repeat played notes. Not unlike a Loop Pedal.</li>
+</ol>
+<h2 id="toc-2">The Loop Machine: Infrastructure</h2>
+<p>This is the core of the project. The loop machine can be separated into the following layers:</p>
+<ol>
+<li>The Loop Machine<ul>
+<li>Responsible for play/pause/stop/record interface.</li>
+<li>Stores tempo and time signature info</li>
+<li>Handles the metronome</li>
+</ul>
+</li>
+<li>Sections<ul>
+<li>This stores a list of recordings.</li>
+<li>The idea here would be that the player could record multiple sections (eg: verse, chorus), and switch between them on the fly.</li>
+<li>Between a lack of time, and space on the UI, I ended up just using one recording section for everything.</li>
+</ul>
+</li>
+<li>Recordings<ul>
+<li>This represents a single cycle worth of recorded notes.</li>
+<li>The recording is responsible for playing all notes that occur between the previous frame, and this frame.</li>
+<li>Entire recordings can be optionally muted</li>
+</ul>
+</li>
+<li>Notes<ul>
+<li>These can be broken down into Impact Notes (one-shot, eg: drum kit), or Sustained Notes (play indefinitely until some stopping condition is met, eg: keyboard key)</li>
+</ul>
+</li>
+</ol>
+<h2 id="toc-3">The Loop Machine: Recording and Replaying Notes</h2>
+<p>The loop machine iterates through a single cycle via time t, in the range [0, 1]. On each frame, we take a look at the time section between the previous frame's t value (pt), and the current t value. For each recording, we play all notes that start between this range of [pt, t]. Stopping sustained notes follows the same logic.</p>
+<h2 id="toc-4">Recording note samples, and formatting the filenames for ease of use</h2>
+<p>As of version 1.1.0, there's 180 SFX clips used for sustained notes. That's 12 notes per octave, 3 octaves per keyboard, over 5 keyboard presets. Using Reaper, I generated made a parent track with the VST instrument. Under that track, I added 12 new tracks, each playing a single note of an entire octave. These tracks were all rendered in one export step, each rendering to a separate file.</p>
+<p align="center">
+    <img src="./reaper-01.png">
+    <img src="./reaper-02.png">
+</p>
+
+<p>From here, I created a script, <a href="./Assets/SFX/notes/formatNoteFileNames.sh">formatNoteFileNames.sh</a>, which would rename these files into something more manageable. The new filenames would include the name of the preset, the octave of the note, an integer from [0, 11] that indicates the note, and the actual name of the note (eg: "triangle-3-0-C.ogg" would be a C3 triangle note).</p>
+<h2 id="toc-5">Using ScriptableObjects to store Sustained Note references</h2>
+<p>I created a ScriptableObject (<a href="./Assets/ScriptableObjects/OctaveNoteCollection.cs">OctaveNoteCollection</a>) to store entire octaves worth of notes, and a second ScriptableObject (<a href="./Assets/ScriptableObjects/SustainedNoteSoundLibrary.cs">SustainedNoteSoundLibrary</a>) to store a list of octaves (as well as some metadata about the instrument. At this point, each note would only need a reference to the sound library, the octave index, and the name of the note. </p>
+<p>Between this, and the above SFX generation strategy, creating new keyboard presets was very quick.</p>
+<h2 id="toc-6">Note VFX Events</h2>
+<p>Each time a note is played (either manually, or from the Loop Machine), an EventChannel is alerted via a UnityAction. Each instrument has a separate event channel. Certain components in the scene can listen to an event channel, and will play some VFX in response (eg: adding ripples to the pond, adding opacity to the pond's fireflies, etc). </p>
+<h2 id="toc-7">UI, and Physics Buttons</h2>
+<p>The buttons were made using Hurricane VR's HVRPhysicsButton script. These were very much plug-and-play, and super easy to use. The only problem I ran into, was that the player can push the buttons from the wrong direction (ie: from the back towards the player), which would still activate the button. I think that childing these Physics Buttons onto a floating rigidbody with no collision is a bit of an edge case, so it makes sense that there's no logic to test the direction of the button press.</p>
+<h1 id="toc-8">Next Steps</h1>
+<h2 id="toc-9">Better Drums</h2>
+<p>The gold standard that I was aiming for with the drums in my game was to have the drumsticks bounce off of the drum, based on the velocity of the collision. This would make rolls and drags possible. This is something that I briefly tested a while ago, via adding torque to the drum stick's rigidbody on collision, but I ended up not having the time for it. I believe it may not be possible with the base Hurricane VR prefab, but it may be possible with the HurricaneVR + Hexabody prefab, due to how the physics hands are implemented. This is something that I need more testing on to confirm - I believe I tested this concept using the HurricaneVR+Hexabody rig, </p>
+<h2 id="toc-10">Better recording, and recording playback</h2>
+<p>It's pretty easy to mess up the timing of your notes. I'd like to implement some note-snapping functionality, where the note's start time t value gets rounded to the nearest quarter/eighth note's time t value.</p>
+<p>It'd also be nice to be able to solo certain recordings, and adjust each individual recording's volume. This was also cut due to a lack of time and UI space.</p>
+<h2 id="toc-11">Section Swapping</h2>
+<p>Currently, everything is recorded and played via a single section. The infrastructure to play/record with other sections is functional, but it needs to be hooked up to the UI. This was another thing cut due to a lack of UI space. Maybe I need to add tabs to the loop machine?</p>
+<p>It'd be nice for the player to be able to queue up a section, so that it plays after the current cycle. This way, there's a smooth transition from the current section to the next. Maybe the player could drag/drop sections into some slot to make this happen?</p>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
+

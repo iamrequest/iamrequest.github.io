@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+	 	<meta charset="utf-8">
+	 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	 	<!-- Bootstrap CSS -->
+	 	<link href="../../bootstrap.min.css" rel="stylesheet">
+
+		<!-- Bootstrap JS & Popper -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+		<!-- Local CSS -->
+		<link rel="stylesheet" href="../../style.css" />
+		<link rel="stylesheet" href="../../style_article.css" />
+
+		<!-- Font -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P">
+
+		<title>made by request</title>
+
+	</head>
+	<body>
+
+	<div id="page-wrapper">
+	<div id="logo-and-music-wrapper">
+		<!-- Music -->
+		<div class="item-container">
+			<header class="item-container-header">
+				<span class="header-text">Music</span>
+			</header>
+
+			<div class="item-container-body music-container-body">
+				<iframe style="border: 0; width: 300px; height: 500px;" src="https://bandcamp.com/EmbeddedPlayer/album=2458872376/size=large/bgcol=333333/linkcol=e99708/transparent=true/" seamless><a href="https://request.bandcamp.com/album/cloudburst">cloudburst by Request</a></iframe>
+			</div>
+		</div>
+
+		<!-- Logo Container -->
+		<div class="item-container logo-container">
+			<header class="item-container-header">
+				<span class="header-text">
+					<strong>Made by request</strong>
+					<span class="header-subtext">made with love</span>
+				</span>
+			</header>
+
+			<div class="item-container-body logo-container-body">
+				<img class="header-logo" src="../../images/request-moe.png"/>
+				<p class="logo-text">I push buttons, and I make free + open source virtual reality games</p>
+
+
+				<hr class="link-hr" />
+
+				<div class="link-container">
+					<div class="link-group-title">Socials</div>
+
+					<div class="link-group">
+						<a class="link-url" href="https://bsky.app/profile/request.moe">
+							Bluesky
+						</a>
+						<a class="link-url" href="https://request.itch.io">
+							Itch.io
+						</a>
+						<a class="link-url" href="https://github.com/iamrequest">
+							Github
+						</a>
+					</div>
+
+					<div class="link-group">
+						<a class="link-url" href="https://opengameart.org/users/request">
+        	    		    OpenGameArt
+        	    		</a>
+						<a class="link-url" href="https://request.bandcamp.com">
+        	    		    Bandcamp
+        	    		</a>
+					</div>
+
+					<div class="link-group-title">Information</div>
+					<div class="link-group">
+						<a class="link-url" href="../../index.html">
+							Games
+						</a>
+						<a class="link-url" href="../../postmortems.html">
+							Postmortems
+						</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div id="body-wrapper">
+
+		<div class="item-container">
+			<header class="item-container-header">
+				<span class="header-text">Postmortem - Vampire Shark Attack!!!</span>
+			</header>
+
+			<div class="item-container-body article-container-body">
+
+			<h1>Table of Contents</h1>
+			<ul>
+			<li><a href="#toc-1">Some topics of interest in this repo</a></li>
+			<li><a href="#toc-2">Thoughts about the locomotion</a></li>
+			<li><a href="#toc-3">Next Steps</a></li>
+			</ul>
+
+<h1 id="toc-1">Some topics of interest in this repo</h1>
+<p>Ultimately, this was an experiment in a new kind of locomotion. Lately, I've been bored of VR Shooter games, so I've been trying to make games that aren't murder sims.
+It's challenging, since making a simple shooter game translates very well to VR!</p>
+<ul>
+<li>Swimming VR Player locomotion. <ul>
+<li>TL;DR: The player is moved in the opposite direction from the palm's normal vector. The player is only moved if the palm is facing the same direction as the motion vector</li>
+</ul>
+</li>
+<li>Simple finite state machine shark AI (chase player state, patrol state, distracted state).<ul>
+<li>Because the shark is unrestricted in its 3 degrees of motion, it moves via a simple lerp towards target position, slowing as it gets within some radius to avoid overshooting.</li>
+</ul>
+</li>
+<li>Simple implementation of Half-Life Alyx's hand containers. Players can store and retrieve Throwable gameobjects in pockets mounted on their wrists.</li>
+</ul>
+<h1 id="toc-2">Thoughts about the locomotion</h1>
+<p>The swimming locomotion turned out to be an interesting experiment. It seems like feedback was mixed, in terms of how nausia-inducing it was. 
+Because the player's speed was turned down, I found it added to the suspense when a shark was chasing you. I thought the drifty-ness was nice too, since it let you glide through the water a bit.
+However, having settings to change how fast the user's motion decays would definitely help prevent motion sickness.</p>
+<p>One of the main problems I have with this kind of locomotion, is that it effectively restricts your hands from moving in the scene. Reaching for blood vials, for example, is more frustrating than it should be.
+During playtesting, I found myself pushing myself away from whatever I'm trying to grab more often than not. Fortunately, throwing blood vials didn't end up pushing the player around too much, which I was worried about.
+Perhaps being able to toggle swimming locomotion on/off via a button press would be a better solution than simply testing Vector3.Dot(palmNormalVector, handMotion)?</p>
+<h1 id="toc-3">Next Steps</h1>
+<ul>
+<li>Shark AI<ul>
+<li>The shark motor logic could be improved more than a simple lerp. Since I can't use navmeshes (shark can move vertically, which is a limitation of navmeshes), I'd have to implement an A* pathfinding algorithm.</li>
+<li>When the shark returns back to the patrol state, it should start patrolling at the nearest Patrol Point in sight, rather than just going back to most recent one.</li>
+<li>When a shark kills the player, only it is returned to its default state and position. Instead, all sharks should reset to their default state and position.</li>
+</ul>
+</li>
+<li>Blood vials<ul>
+<li>These should be tweaked to be more reliable. Regardless of how high I set the radius for Physics.OverlapShere(), sharks would not always be alerted to it. A bit more time could iron out this bug.</li>
+</ul>
+</li>
+<li>Settings<ul>
+<li>When I was implementing the swimming locomotion, I had built in functionality to swap in motor presets, in-case players were prone to motion sickness. This would be an arm-mounted UI Canvas menu.</li>
+<li>Ideally, users could switch between swimming locomotion and traditional smooth locomotion. Users should be able to change how fast and drifty the swimming locomotion is.</li>
+<li>Ultimately, I couldn't get SteamVR canvas interaction working well enough, so I ended up scrapping it.</li>
+</ul>
+</li>
+<li>Juice<ul>
+<li>Even though sharks are silent creatures, they should have some audio SFX to alert the player that they've been spotted/killed.</li>
+<li>The swimming locomotion should give some audio feedback relative to how fast the player is moving (eg, a bubble sfx)</li>
+<li>The player could play a heartbeat SFX loop, which would speed up when at least 1 shark has spotted the player</li>
+</ul>
+</li>
+</ul>
+
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
+

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+	 	<meta charset="utf-8">
+	 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	 	<!-- Bootstrap CSS -->
+	 	<link href="../../bootstrap.min.css" rel="stylesheet">
+
+		<!-- Bootstrap JS & Popper -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+		<!-- Local CSS -->
+		<link rel="stylesheet" href="../../style.css" />
+		<link rel="stylesheet" href="../../style_article.css" />
+
+		<!-- Font -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P">
+
+		<title>made by request</title>
+
+	</head>
+	<body>
+
+	<div id="page-wrapper">
+	<div id="logo-and-music-wrapper">
+		<!-- Music -->
+		<div class="item-container">
+			<header class="item-container-header">
+				<span class="header-text">Music</span>
+			</header>
+
+			<div class="item-container-body music-container-body">
+				<iframe style="border: 0; width: 300px; height: 500px;" src="https://bandcamp.com/EmbeddedPlayer/album=2458872376/size=large/bgcol=333333/linkcol=e99708/transparent=true/" seamless><a href="https://request.bandcamp.com/album/cloudburst">cloudburst by Request</a></iframe>
+			</div>
+		</div>
+
+		<!-- Logo Container -->
+		<div class="item-container logo-container">
+			<header class="item-container-header">
+				<span class="header-text">
+					<strong>Made by request</strong>
+					<span class="header-subtext">made with love</span>
+				</span>
+			</header>
+
+			<div class="item-container-body logo-container-body">
+				<img class="header-logo" src="../../images/request-moe.png"/>
+				<p class="logo-text">I push buttons, and I make free + open source virtual reality games</p>
+
+
+				<hr class="link-hr" />
+
+				<div class="link-container">
+					<div class="link-group-title">Socials</div>
+
+					<div class="link-group">
+						<a class="link-url" href="https://bsky.app/profile/request.moe">
+							Bluesky
+						</a>
+						<a class="link-url" href="https://request.itch.io">
+							Itch.io
+						</a>
+						<a class="link-url" href="https://github.com/iamrequest">
+							Github
+						</a>
+					</div>
+
+					<div class="link-group">
+						<a class="link-url" href="https://opengameart.org/users/request">
+        	    		    OpenGameArt
+        	    		</a>
+						<a class="link-url" href="https://request.bandcamp.com">
+        	    		    Bandcamp
+        	    		</a>
+					</div>
+
+					<div class="link-group-title">Information</div>
+					<div class="link-group">
+						<a class="link-url" href="../../index.html">
+							Games
+						</a>
+						<a class="link-url" href="../../postmortems.html">
+							Postmortems
+						</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div id="body-wrapper">
+
+		<div class="item-container">
+			<header class="item-container-header">
+				<span class="header-text">Postmortem - Curse of the Pinyaata</span>
+			</header>
+
+			<div class="item-container-body article-container-body">
+
+			<h1>Table of Contents</h1>
+			<ul>
+			<li><a href="#toc-1">Curse of the Pinyaata: Postmortem</a></li>
+			<li><a href="#toc-2">About The Idea of This Game</a></li>
+			<li><a href="#toc-3">Topics of Interest</a></li>
+			<ul>
+			<li><a href="#toc-4">Ping Shader</a></li>
+			<ul>
+			<li><a href="#toc-5">Evaluation</a></li>
+			<li><a href="#toc-6">Performance</a></li>
+			<li><a href="#toc-7">Color Mixing</a></li>
+			</ul>
+			<li><a href="#toc-8">Dialog System</a></li>
+			<ul>
+			<li><a href="#toc-9">Custom Dialog Renderer</a></li>
+			<li><a href="#toc-10">Active vs Passive Dialog</a></li>
+			<li><a href="#toc-11">Issues with Dynamically Selecting Conversations</a></li>
+			<li><a href="#toc-12">Issues with Scriptable Object Interfacing</a></li>
+			<li><a href="#toc-13">Overall Thoughts on NodeCanvas</a></li>
+			</ul>
+			<li><a href="#toc-14">Progression System</a></li>
+			<ul>
+			<li><a href="#toc-15">Commit-style saving</a></li>
+			</ul>
+			</ul>
+			</ul>
+
+<h1 id="toc-2">About The Idea of This Game</h1>
+<p>The idea for making this game came after seeing that itch.io was hosting a game jam where you were to make games for the blind - the main player feedback coming from easily-identifiable sound cues, or haptics. I thought this would be an interesting challenge to bring to VR, because so much of VR is focused on what you can see.We're literally strapping monitors to our faces, so what would a game look like with the constraint of not being able to use that?</p>
+<p>My first idea was to make a simple "Hit the Piñata" game, where the player can't see anything at all, and is guided to hit the piñata based on sound cues along (maybe a little jingle, or a song that plays from the piñata). I thought it'd be fun to have the piñata be controlled by a second player on desktop - maybe they would be able to see the world, and move the piñata's joint connection around the scene. It seemed like it would be a lot of fun watching your friends trying their best to hit an elusive piñata.</p>
+<p>Another thought I had, was would happen if the VR player was let loose in real life, and managed to injure/damage their surroundings? The kind of thing you're warned about when you boot up a Wii game, or the aftermath you'd see posted on /r/VRtoER. Obviously this is something I wanted to avoid in real life, but what if I designed the game around this concept? Maybe the player just has to break as much stuff as they can before someone stops them. Like they're in a party room at Chuck-E-Cheese or something, and the player breaks out of the party room - breaking the machines, hitting ragdoll NPCs around, knocking stuff all over the place, fighting security guards. Maybe after a time limit, the player removes the blindfold, and sees all the damage they've caused. If a desktop player is still guiding the VR player around (either via oral communication, or by interfacing with the game scene), that could be a good multiplayer experience. </p>
+<p>I think this idea on its own has legs to stand on, but I was concerned that it would be too hard for the VR player to navigate the scene. Would the player be able to navigate a scene via sound alone? Would the player be able to reasonably track where moving objects/NPCs are in the scene? Would there be too many sounds to tell where everything is (piñata sfx, NPC sfx, maybe BGM)? Well, how do blind people navigate in real life, and in fiction? In real life, people typically use canes to feel out the terrain around them. A bit hard to make this feel intuitive, unless I were to add haptics, and make the cane visible (so you could see how the cane's rigidbody is affected by the world). I was reminded of the scene from Avatar: The Last Airbender, where Toph explains how she can "see" by feeling the vibrations of movement through the earth. The way they visualized this seemed like an interesting project. Unfortunately, it didn't fit the original scope of "a VR game that is accessible to the blind", but I was still happy with what the gameplay loop looked like at this point.</p>
+<p>And so I settled on a game where the player has to tap their cane (in this case, a "hit the piñata" bat) to use echolocation. The player has a short duration to break as much stuff as they can, before they have to take off the blindfold. Since I had just finished playing Inscryption, and the prompt was "It is not real", I decided to make a light creepypasta-like story surrounding the gameplay.</p>
+<p>As an aside: At this point, I was vaguely aware of echolocation being done before in other VR games (Blind), but I thought this could still be an interesting/unique vertical slice. Like the VR equivalent of Rampage for N64, in short runs, not unlike Tony Hawk Pro Skater 2.</p>
+<h1 id="toc-3">Topics of Interest</h1>
+<p>The main topics of interest that I wanted to explore was the echolocation shader, dialog systems using NodeCanvas, and a progression system.</p>
+<h2 id="toc-4">Ping Shader</h2>
+<p>I wrote a breakdown of this shader over on <a href="https://twitter.com/requestmoe/status/1501253916440379392">twitter dot com</a>. I briefly talk about performance and the drawbacks of this approach, but I'll go over those details in more detail here.</p>
+<h3 id="toc-5">Evaluation</h3>
+<p>This is a shader for a material that gets applied to every mesh in the scene. I originally wanted to get this working as a render pass instead, but I wasn't able to get render passes working during my whitebox testing, so I settled for writing a shader instead. The big obvious drawback here is that all objects in my scenes had to have the same material. Fortunately, because I was using an asset pack for most of my models, most of my models already were using the same material instance. If I had to introduce a new model that used a different texture or something, I'd have to update multiple models every frame in my PingShaderManager script! In terms of overall complexity, it'd be much better to approach this as a render pass, which I do want to approach at some point.</p>
+<h3 id="toc-6">Performance</h3>
+<p>Overall, the shader was not as expensive to use as I expected. I was concerned about having to run all of these calculations (mainly the Distance() node) for each texel in view, for each ring I supported, and twice for each eye. Between the "don't render this ring if I mark it as not-in-use" optimization, and not all rings being visible in the first place, I don't think I dropped below 90 fps on a 2070 GPU. For a game where most of the screen is a flat grey color most of the time, I would expect that as a minimum! I still don't know how it runs on mobile hardware since I don't own a Quest, but I suspect it should be fine. I did try to evaluate performance via the GPU profiler, but I didn't see any significant load caused by the shader. Maybe I'm just underestimating what modern GPUs are capable of!</p>
+<h3 id="toc-7">Color Mixing</h3>
+<p>One thing I think could use more of my attention in my shader was the way that I combined the rings for the final output. The way that I ended up doing this was by just adding together the original texture (or a flat color, if the player is blindfolded), along with each ring instance's color. Both in RBGA format. This is functional, but the colors don't mix as I expected. For example, if I had a blue ring and a yellow ring, I would expect to see green in the areas where they overlap. At least, that's what I'd expect to see when mixing paints. However, since I'm just adding RBG values, I end up with white! This is because yellow has an RGB value of (255,255,0), and blue has (0,0,255) - adding these together gives us white (255,255,255). Looking at the issue in retrospect, I see that I need to convert my colors to CYMK before trying to mix them (<a href="https://stackoverflow.com/a/4256156">stackoverflow</a>, <a href="https://www.rapidtables.com/convert/color/rgb-to-cmyk.html">RGB to CYMK color converter</a>).</p>
+<h2 id="toc-8">Dialog System</h2>
+<p>I recently got <a href="https://assetstore.unity.com/packages/tools/visual-scripting/nodecanvas-14914">NodeCanvas</a> through a humble bundle, and so I wanted to give it a try. My previous dialog systems were all linear, and hard to modify/serialize/save because I wrote the custom inspectors myself. NodeCanvas allowed me to write simple branching dialog systems, and easily allowed me to hook in custom functions/logic throughout the dialog tree.</p>
+<h3 id="toc-9">Custom Dialog Renderer</h3>
+<p>For a visual novel desktop game, the dialog box is right in the front of the screen. There's little issue telling who's talking, or with getting the player to look at dialog, since it's at the center of the player's attention at all times. With VR games, the player can be looking at whatever they want at any point, and with no experience/budget for voice acting, I have a bit of an issue here. How can I effectively communicate who's talking, and how can I get the player to look at who's talking? These are things I worked on previously for <a href="https://request.itch.io/shattered-skies">Shattered Skies</a>, <a href="https://request.itch.io/a-vr-game-about-magic-and-ducks-in-cosplay">A VR Game About Ducks in Cosplay</a>, and <a href="https://request.itch.io/a-vr-game-about-ducks-in-capitalism">A VR Game About Ducks in Capitalism</a> - but in those games, I was able to conviniently have the player right in front of the NPC. Positing the player, and the text box was easy. But that wasn't the case in this game, where the player is in an open room, surrounded by NPCs. I had many issues to solve:</p>
+<ul>
+<li>If I use speech bubbles like in previous games, where does the player's dialog box go? </li>
+<li>If I place the player's dialog box right in front of the player, how do I avoid it getting occluded by scene geometry? </li>
+<li>If I mount the player's text box to their hand, how do I tell the player to look at their hand when the player is talking?</li>
+</ul>
+<p>Ultimately, I didn't have time to answer some of these questions, so I ended up making the player a silent protagonist. I used a similar textbox approach from previous games, where each <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/Dialog/DialogActorCustom.cs">DialogActor</a> had a <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/Dialog/DialogRenderer.cs">DialogRenderer</a>, which would type out text from a DialogTree's "say" nodes, if it was this actor's turn to talk. As each character is typed to the textbox, a custom SFX is picked from that actor's "character typed" SFX list, and is played at the location of the NPC's mouth - informing the player where the current speaker's is speaking from.</p>
+<p>For next time, I think the player's dialog would be either mounted on their hand, or an interactable that spawns in front of the player. The player should have a conversation log that's easily accessible (either through this dialog box, or through a separate item on their person), and the player should be able to interact with dialog via buttons on this box.</p>
+<h3 id="toc-10">Active vs Passive Dialog</h3>
+<p>This is a concept out of scope for this game, but I wanted to be able to support active dialog (ie: the player is actively talking to an NPC, like Skyrim/Fallout dialog), and passive dialog (ie: an NPC has a textbox/vocal dialog directed at the player as they pass by, or some dialog with another NPC). I figured the latter would be a nice tool to have, since it would be neat for the player to glean information about the world just by passing NPCs conversing in an alive world. </p>
+<h3 id="toc-11">Issues with Dynamically Selecting Conversations</h3>
+<p>I initally had the idea to make each dialog conversation a separate asset, which I could select dynamically via a separate picking function (more specifically, a NodeCanvas BehaviourTree). The goal was to reduce complexity in my dialog trees, separating conversation picking logic from the actual dialog. This solution created many problems, and I ultimately ended up scrapping the solution, in favor of just combining my selection logic and dialog all in the same dialog tree graph. A bit messy, but for the scale of game I had, it wasn't a huge problem. </p>
+<p>One issue I had with the BehaviourTrees was that they would run asynchronously, and so that caused problems with starting dialog when the actual conversation hadn't been picked yet. This was resolved once I figured out that I could hook up a callback function to run after the BehaviourTree had finished executing.</p>
+<p>This also caused issues with populating my <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/Dialog/DialogActorCustom.cs">DialogActor</a> references - possible because I was using a custom child class of the default DialogActor that came with NodeCanvas. I ended up adding an Event Channel function that would alert all <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/Dialog/DialogActorCustom.cs">DialogActor</a> references in the scene that a dialog was about to begin, and they would individually try to populate their own references against the active DialogTree. After some work (more async issues due to starting the dialog immediately after picking dialog), this was functional, but my solution was messy. This was the main reason I scrapped the solution, in favor of the simpler route.</p>
+<h3 id="toc-12">Issues with Scriptable Object Interfacing</h3>
+<p>One issue I found with NodeCanvas' Dialog Trees, was that I was unable to hook up scriptable object functions to the "Execute Function" nodes. I suspect this may be a bug, which I plan on following up on later. This was a bit of a hassle for me, because I had already created Event Channels to handle a lot of my game logic (game state changes, save/progression management, scene transitions). For example, it would have been really nice to be able to add a node at the end of the tutorial dialog that would mark "isTutorialComplete" as true, having to only pass in a scriptable object with no scene reference. Yes, this could have been done via a singleton object in the scene (which I did have for some of my scripts), but fetching that reference via the node wasn't possible (unless I created a custom node - too much effort for too little value). I ended up adding wrapper functions in my dialog management scripts that would interface with the scriptable object.</p>
+<h3 id="toc-13">Overall Thoughts on NodeCanvas</h3>
+<p>This asset is really good, once you get used to how it works. Even though I had a bit of a rough time with it during this game, the tool is very powerful. It's <strong>way</strong> better than the custom stuff I implemented in <a href="https://request.itch.io/a-vr-game-about-ducks-in-capitalism">A VR Game About Ducks in Capitalism</a>. I plan on playing with this more, so I can get active/passive dialog systems working better.</p>
+<h2 id="toc-14">Progression System</h2>
+<p>Because I wanted to introduce a high score system, I needed the ability to save/load the player's progress. After introducing a light narrative that carries across scenes and play sessions, my use-case grew a bit in complexity, beyond just storing a list of floats in UserPrefs. I decided to create a <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/FileManagement/SaveData.cs">SaveData</a> plain c# object, and serialize that to JSON. This was done via a <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/FileManagement/SaveManager.cs">SaveManager singleton class</a> used for accessing the data, and a <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/FileManagement/SaveDataWriter.cs">static SaveDataWriter class</a> that actually does the save/load operation. I'm not really concerned with the player messing with the file to break progression or cheat their way on the leaderboard (it's a single player game, do whatever you want). If I wanted to maintain player honesty via the leaderboard, the next steps would be to host a leaderboard on some online service, and probably use that service's REST API to get/post high score data. Too much work for this scale.</p>
+<h3 id="toc-15">Commit-style saving</h3>
+<p>In terms of saving the data, I went with a commit-style model. I would load the player's save data from json into my <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/FileManagement/SaveData.cs">SaveData</a> object (creating a new one if the file didn't exist, or was malformatted JSON), and then any updates to the player's save data (eg: a new high score being made) would be made to the <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/FileManagement/SaveData.cs">SaveData</a> object. When ready, I would commit my changes by exporting the <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/FileManagement/SaveData.cs">SaveData</a> object back to json. I think this setup works as expected, although I was worried about accidentally corrupting the player's save data by mishandling the object. For example, the <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/FileManagement/SaveData.cs">SaveData</a> object is a field in my SaveDataManager singleton instance that would persist between scenes - what if I wrote to the wrong field in my <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/FileManagement/SaveData.cs">SaveData</a> object, messing up the save state going forward forever? What if I lost the reference to the <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/FileManagement/SaveData.cs">SaveData</a> object based on how I wrote my getter/setters? I think these are unlikely, but these are some of the thoughts I had while making this design.</p>
+<p>The alternative design that I had considered was to instead make separate Manager classes that would each read the data they need from the <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/FileManagement/SaveData.cs">SaveData</a> class on load. At that point, any downstream classes would get/set the value from this Manager class. Perhaps the SaveManager would alert all of these downstream Manager classes to write their respective data to the <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/FileManagement/SaveData.cs">SaveData</a> object before saving. I think that encapsulating each individual subset of the <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/FileManagement/SaveData.cs">SaveData</a> into downstream Manager classes is a good idea going forward, in the interest of making an interface to the <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/FileManagement/SaveData.cs">SaveData</a> that won't mess things up. However, this does add a bit of complexity, so I think it would still be better to stick to the additive commit model, rather than making some alert/event system that builds the save data from scratch. </p>
+<p>I think a good example of what I liked from my save management system is from the <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/GameManagement/ScoreManager.cs">ScoreManager</a> class - when the save data is loaded from the file, I update the internal representation (list of floats) of the high scores using the save data. Upon any changes to the high score list, I send out an event, and I commit+save this change to the json file (which also sends out another unity event). I have another script that renders the high scores to a text element (<a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/UI/HighScoreRenderer.cs">HighScoreRenderer</a>) - whenever the save data gets saved or loaded, the <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/UI/HighScoreRenderer.cs">HighScoreRenderer</a> writes out the high scores to a TextMeshPro text element using the ScoreManager's internal list of high scores. All saving and loading of high scores is abstracted through the ScoreManager, so there's little chance of me messing my <a href="https://github.com/iamrequest/curse-of-the-pinyaata/blob/main/Assets/Scripts/FileManagement/SaveData.cs">SaveData</a> object up.</p>
+</body></html>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
+
