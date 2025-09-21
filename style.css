@@ -63,6 +63,17 @@ body {
 	color: white;
 }
 
+.center {
+	text-align: center;
+}
+
+figure {
+	text-align: center;
+}
+
+figcaption {
+	color: #999;
+}
 
 
 /* Logo */
@@ -154,3 +165,5 @@ body {
 	border: 1px dashed var(--link-url-color);
 	border-radius: 10px;
 }
+
+

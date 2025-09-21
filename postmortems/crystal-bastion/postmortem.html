@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+	 	<meta charset="utf-8">
+	 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	 	<!-- Bootstrap CSS -->
+	 	<link href="../../bootstrap.min.css" rel="stylesheet">
+
+		<!-- Bootstrap JS & Popper -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+		<!-- Local CSS -->
+		<link rel="stylesheet" href="../../style.css" />
+		<link rel="stylesheet" href="../../style_article.css" />
+
+		<!-- Font -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P">
+
+		<title>made by request</title>
+
+	</head>
+	<body>
+
+	<div id="page-wrapper">
+	<div id="logo-and-music-wrapper">
+		<!-- Music -->
+		<div class="item-container">
+			<header class="item-container-header">
+				<span class="header-text">Music</span>
+			</header>
+
+			<div class="item-container-body music-container-body">
+				<iframe style="border: 0; width: 300px; height: 500px;" src="https://bandcamp.com/EmbeddedPlayer/album=2458872376/size=large/bgcol=333333/linkcol=e99708/transparent=true/" seamless><a href="https://request.bandcamp.com/album/cloudburst">cloudburst by Request</a></iframe>
+			</div>
+		</div>
+
+		<!-- Logo Container -->
+		<div class="item-container logo-container">
+			<header class="item-container-header">
+				<span class="header-text">
+					<strong>Made by request</strong>
+					<span class="header-subtext">made with love</span>
+				</span>
+			</header>
+
+			<div class="item-container-body logo-container-body">
+				<img class="header-logo" src="../../images/request-moe.png"/>
+				<p class="logo-text">I push buttons, and I make free + open source virtual reality games</p>
+
+
+				<hr class="link-hr" />
+
+				<div class="link-container">
+					<div class="link-group-title">Socials</div>
+
+					<div class="link-group">
+						<a class="link-url" href="https://bsky.app/profile/request.moe">
+							Bluesky
+						</a>
+						<a class="link-url" href="https://request.itch.io">
+							Itch.io
+						</a>
+						<a class="link-url" href="https://github.com/iamrequest">
+							Github
+						</a>
+					</div>
+
+					<div class="link-group">
+						<a class="link-url" href="https://opengameart.org/users/request">
+        	    		    OpenGameArt
+        	    		</a>
+						<a class="link-url" href="https://request.bandcamp.com">
+        	    		    Bandcamp
+        	    		</a>
+					</div>
+
+					<div class="link-group-title">Information</div>
+					<div class="link-group">
+						<a class="link-url" href="../../index.html">
+							Games
+						</a>
+						<a class="link-url" href="../../postmortems.html">
+							Postmortems
+						</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div id="body-wrapper">
+
+		<div class="item-container">
+			<header class="item-container-header">
+				<span class="header-text">Postmortem - Crystal Bastion</span>
+			</header>
+
+			<div class="item-container-body article-container-body">
+
+			<h1>Table of Contents</h1>
+<ul>
+<li><a href="#toc-1">About</a></li>
+<ul>
+<li><a href="#toc-2">About the game</a></li>
+<li><a href="#toc-3">Goals for this project</a></li>
+</ul>
+<li><a href="#toc-4">Technical Details</a></li>
+<ul>
+<li><a href="#toc-5">Physics grab interactions</a></li>
+<ul>
+<li><a href="#toc-6">How it works</a></li>
+<li><a href="#toc-7">Limitations</a></li>
+</ul>
+<li><a href="#toc-8">Player swapping</a></li>
+<li><a href="#toc-9">Enemies</a></li>
+<li><a href="#toc-10">Arena management</a></li>
+</ul>
+<li><a href="#toc-11">Reflection</a></li>
+<ul>
+<li><a href="#toc-12">Physics interactions</a></li>
+<li><a href="#toc-13">Player Rigs</a></li>
+<li><a href="#toc-14">Enemies</a></li>
+<li><a href="#toc-15">Arena Management</a></li>
+<li><a href="#toc-16">Environment</a></li>
+</ul>
+<li><a href="#toc-17">Summary</a></li>
+<ul>
+<li><a href="#toc-18">What went well</a></li>
+<li><a href="#toc-19">What didn't go well</a></li>
+<li><a href="#toc-20">Next Steps</a></li>
+</ul>
+</ul>	
+
+<h1 id="toc-1">About</h1>
+<p>Crystal Bastion was a VR game made in 7 days for the <a href="https://itch.io/jam/godot-xr-game-jam-sep-2025">September 2025 Godot XR Game Jam</a>. The theme of the jam was "It Takes Two".</p>
+
+<h2 id="toc-2">About the game</h2>
+<p>This game is a simple "defend the base" game - waves of enemies walk to the player's base and try to destroy it, and the player must defend it. </p>
+<p>The player controls two character rigs, one with a laser gun and one with a laser sword. The player can switch between the two, with a brief anti-spam cooldown. </p>
+<p>The player's 2 weapon types are both rigidbodies, and grab interactions with these weapons are done with Godot's <code>Generic6DOFJoint3D</code>s. This means that unlike with the approach used for the Godot XRTools addon, the player is unable to pick up a weapon and freely swing it through walls*.</p>
+
+<p>You can see this system in action below. The blue hand is where my controller is, which is not visible in the final build.</p>
+
+<figure>
+	<video width="640" height="360" controls="">
+		<source src="physics-grabs.mp4" type="video/mp4" />
+		Your browser does not support this MP4 video.
+	</video>
+</figure>
+
+<div class="aside">* Off the top of my head, I'm pretty sure that held pickables will collide with RigidBody3Ds, but will clip through any StaticBody3Ds.</div>
+
+
+<h2 id="toc-3">Goals for this project</h2>
+<p>The main goal of this game was to try out the physics grab interaction system that I've been working on. At the moment, the feature list of the system is as follows:</p>
+<ul>
+<li>The player can grab physics pickables, both ones right at the player's hand, and from a distance</li>
+<li>The pickable will be grabbed at the most appropriate GrabPoint. The pickable will align to this GrabPoint when grabbed<ul>
+<li>By most appropriate, this means the closest grab point (position + angle), that the HandGrabPoint's handedness matches the grabbing hand's handedness</li>
+<li>This is code pulled from Godot XR Tools' FunctionPickup.gd</li>
+</ul>
+</li>
+<li>When picking a pickable up, the pickable will smoothly lerp to the player's hand before the physics joint is set up</li>
+</ul>
+<p>I'm currently smoothing out the edges of 2 handed interactions - you'll probably see that implementation in the next game jam.</p>
+<p>The secondary goal for this jam was to meet the theme requirements of the jam. I was close to making a multiplayer game (thinking something along the lines of a VR + Desktop PC multiplayer game, where the desktop player would control a small companion mech like in Metal Gear Solid 4) - but I decided to lock in on grab interactions instead. The end result was a system where the player controls 2 characters, each with a different weapon type.</p>
+
+
+<h1 id="toc-4">Technical Details</h1>
+<h2 id="toc-5">Physics grab interactions</h2>
+<h3 id="toc-6">How it works</h3>
+<p>The node breakdown of the hand joint prefab can be found below. 2 of these are spawned for each player rig (one for each hand) and they're spawned as a child of the level itself. Spawning the hand joints separate from the player rig is done in an attempt to avoid any weird physics jank that may occur with nesting rigidbodies.</p>
+
+<p>As a root node, I have a <code>Generic6DOF3DJoint</code> which binds the Anchor <code>RigidBody3D</code>, as well as the held pickable. The Anchor rigidbody does not move at all - it remains kinematic and locked in at local position/rotations of Vector3.ZERO.</p>
+
+<p>The PickableGrabBag contains all of the "selection" logic: identifying when an object is hovered by the hand, either via overlap radius or via a ranged grab. This script is a stripped down version of Godot XRTools' FunctionPickup.gd, refactored into a separate file to isolate selection logic from joint management logic.</p>
+
+<figure>
+	<img src="joint-node-hierarchy.png"></a>
+	<figcaption>The node hierarchy for the physics grab prefab.</figcaption>
+</figure>
+
+<p>Under the hood, the joint is doing all of the heavy lifting. When the player presses the grip button, the pickup routine begins. The pickable is lerped towards the joint over a short duration. At the end of the lerp, I initialize the joint by setting the references to both connected bodies (the Anchor and the held object).</p>
+
+<p>In terms of actually setting up the joint, I've found the secret sauce is that the initial orientation of the two connecting nodes relative to the joint is important. Coming from Unity this was something I had to stumble into, since physics joint documentation isn't well defined - in Unity, you can manually set the RigidBody's position/rotation offset from the joint. This is done automatically in Godot, when you assign the references to the joint's connected bodies (<code>Generic6DOF3DJoint.node_a</code> and <code>Generic6DOF3DJoint.node_b</code>).</p>
+
+<p>On the note of joint alignment, there's a 2 of configuration that I've set up here. On the pickable prefab, I've extended Godot XR Tools' <code>XRToolsGrabPointHand</code>. This is the usual approach that aligns a hand to the pickable, which you'll find in Godot XR Tools' implementation. I've also added a second layer of optional rotational offset, so that I can further rotate the whole pickable from this grab point. I found that the default orientation of the sword after configuring the correct hand pose felt wrong - the sword was being held too far forward. I've seen that some VR shooter games offer a similar offset in their settings, in the event that the pitch of the held gun feels wrong for their controllers.</p>
+
+<p>You can find the source code for all of this <a href="https://codeberg.org/request/crystal-bastion/src/branch/master/assets/scripts/pickables">here</a>.</p>
+
+
+<h3 id="toc-7">Limitations</h3>
+<p><strong><strong>1 handed interactions</strong></strong></p>
+<p>Since it's a simple system so far, there's a handful of caveats associated with the grab system. The main one being that the player is limited to 1 handed grabs. I found I was really limited by this - there were a lot of cool ideas for weapons I had in mind, which would've been nice to work into this jam. Aligning the rotation of the 2 handed grab joints has been causing me a little issue, so I decided to refactor that out of my framework for now.</p>
+
+<p><strong><strong>Joint Configuration, and applying torque </strong></strong></p>
+<p>Another issue I was running into was with tuning the spring stiffness of the 6DOF Joints to a decent point. I've set up a catch-all joint configuration that felt good, with an aggressive linear and angular spring joint stiffness.</p>
+
+<p>The downside of this is that I found I was unable to apply a one-shot torque to my pickables, and have it actually look like anything was happening. At one point I tried to apply a recoil to the laser gun (dream with me, that it makes sense for a laser gun to have recoil - it looks cool!), but there was so much correctional torque being applied to the gun via the grab joint that it wasn't visible. Turning the angular spring joint stiffness down resolved this issue, but the grab interaction felt too "floppy". Spending a little more time fine-tuning the joint config should resolve this, and worst-case I could also take a more-gross approach of applying force over a short period of time (which would give me better control over recoil anyways).</p>
+
+<figure>
+	<img src="joint-config.png"></a>
+	<figcaption>The configuration for this joint. The linear/angular spring stiffness+damping were the only real things I needed to play with. </figcaption>
+</figure>
+
+
+<p><strong><strong>Pickable Center of Mass</strong></strong></p>
+<p>On the topic of joint configuration - I've got a hacky workaround for handling the center of mass for my pickables. The issue is in that the pickable's center of mass is different from the hand grab joint's connection point. When I move the player's body RigidBody around for locomotion, Godot applies a torque to the pickable.</p>
+
+<p>You can see what this looks like in the video below - I'm not moving my right hand and all during this clip:</p>
+
+<figure>
+	<video width="640" height="360" controls="">
+		<source src="center-of-mass.mp4" type="video/mp4" />
+		Your browser does not support this MP4 video.
+	</video>
+	<figcaption>With a default center of mass, the held object has a torque applied to it when the player moves.</figcaption>
+</figure>
+
+
+<p>This torque appears to be applied along the axis defined by the cross product between the player body RigidBody's velocity, and the direction from the hand joint to the RigidBody's center of mass. I have not confirmed this, and instead opted for a hacky workaround.</p>
+<p>By default, the RigidBody3D's center of mass is auto-calculated based on the positional average of all of the RigidBody's CollisionShape3Ds. This can be overridden optionally - <code>RigidBody3D.center_of_mass_mode</code> can be set to <code>CENTER_OF_MASS_MODE_CUSTOM</code> so that the public Vector3 <code>RigidBody.center_of_mass</code> is used instead. Instead of applying the proper counter-torque here, I instead just set the pickable's <code>center_of_mass</code> to the position of the hand joint, functionally eliminating all movement torque! This works for my use-case, but it feels wrong that pickables are perfectly balanced along the grab point. In other words, this is fine for a laser sword or a pistol, but it would feel very wrong for something like a big hammer.</p>
+
+<p><strong><strong>Editor Physics Configuration</strong></strong></p>
+<p>One thing worth mentioning is the editor physics configuration. I've set Godot to use Jolt physics, because I've had better results with it in general as opposed to the old physics engine. Less clipping through objects, and the physics simulation feels more accurate to me. </p>
+<p>The way that I set up the player rig also caused some physics issues for me. I was finding that while the player rig was in motion, I was getting some jittery movement behaviour on the held pickable - as if the motion of the joint <code>RigidBody3D</code> wasn't being calculated at the same tick rate. I was able to resolve this by disabling <code>Physics Interpolation</code> and setting <code>Physics Jitter Fix</code> to 1.0. Disabling Physics Interpolation hasn't caused any issues for me yet, but that may be because my physics tick rate is set close to what the screen refresh rate is.</p>
+
+<figure>
+	<img src="physics-config.png"></a>
+	<figcaption>The project's physics configuration.</figcaption>
+</figure>
+
+
+<p>The hand joint prefab spawns as a child of the scene rather than as a child of the parent rigidbody, to prevent any weird interactions with childed rigidbodies. However, I am moving the hand joint to the player's controllers every physics frame, which may have caused some weird physics jank here? In any case, the jitter fix solution worked for me, so I won't be making changes here unless necessary.</p>
+
+<h2 id="toc-8">Player swapping</h2>
+<p>At a high level, player rig swapping was done by simply disabling one rig and enabling another. The disabled rig has its <code>Node3D.process_mode</code> set to <code>Disable</code>, and its RigidBody set to kinematic freeze. Conversely, the enabled rig has its <code>process_mode</code> restored to <code>inherit</code>. and its root <code>RigidBody3D</code> unfrozen. I also register current rig as the current one, for tracking via <code>Globals.xr_rig</code>, and also for whatever goes on under the hood of XRTools (enabling the camera, and probably for some form of <code>XRRig.get_current_rig()</code>).</p>
+
+<p>For managing the rig instantiation, I have a simple controller which spawns player rigs. I specify a list of <code>Marker3D</code>s as spawn points, and an enum to indicate what weapon the player will spawn with. This spawn location is also re-used to respawn the player when they die. I'm pretty sure that at one point I had a different player rig spawning for each weapon type, mainly so that each character could have finer-tuned configurations (move speed, jump height, etc), but I didn't end up taking advantage of that system. </p>
+
+<h2 id="toc-9">Enemies</h2>
+<p>Enemies use the same framework that they have for the last few games - motion is driven by <code>RigidBody3D</code>s, and logic is driven by a FiniteStateMachine. The main change here since last time is that I'm using <code>RigidBody3D</code>s for moving characters instead of <code>CharacterBody3D</code>s. There were 2 enemy types in game - the Crystal Ball enemies, and the Suit enemies. The Suit enemies are not mechanically different from my usual base enemy templates, so I won't go into detail here.</p>
+<p>The Crystal Ball enemies are meant to give the player some variance when attacking with a sword. Their design is based on the sword fighting minigames from Wii Sports Resort - they would hold their swords either vertically or horizontally, and so the player would have to swing their sword to match that orientation to score a hit. The crystal ball enemies spawn a random number of shields which rotate around it, randomly picking between rotating along the local Y axis or along the local X axis. These shields are simple static <code>RigidBody3D</code>s. so they block sword hits if the player swings their sword the wrong way.</p>
+<p>Each enemy had 2 variants: a blind variant, and a stronger variant. The blind variants had grey retexturing on the crystal, and the stronger variants had a gold retexturing on the crystal. The blind variants were meant to ease the player into the combat gameplay, letting the player observe the enemies without immediate danger. These blind enemies had their <code>VisionComponent</code> marked as blind, so they could not enter the "chase player" state, and would simply chase the player's base instead. The strong variant of enemies simply had more health - I believe they also chase the player faster.</p>
+
+<h2 id="toc-10">Arena management</h2>
+
+<p>Enemy spawning is handled by the ArenaManager. The ArenaManager is responsible solely for the "spawn enemies" routine, which can be started and stopped via global signals. These global signals ended up being super handy for having a loose coupling between Arena start/stop functions and all of the places that should control the arena state (ie: arena UI, the player dying).</p>
+<p>The configuration of each round is stored in a resource which stores a list of <code>WaveConfig</code>s. Each wave is defined as a group of a single enemy type being spawned at a spawn location, with some extra information stored about wave timing (ie: how long to wait before the wave starts, how long to wait between spawning each enemy, whether or not all enemies must be killed before this wave is considered complete). Once a round is started, the <code>ArenaManager</code> iterates over each <code>WaveConfig</code> in the round, waiting for various timeouts and instantiating enemies as per the wave config.</p>
+
+<figure>
+	<img src="round-config.png"></a>
+	<figcaption>The resource used to store a round of combat. Each wave represents a single enemy type spawned at a single location, a given number of times. There's also some extra information that controls spawn timing, and BGM intensity</figcaption>
+</figure>
+
+
+<h1 id="toc-11">Reflection</h1>
+<h2 id="toc-12">Physics interactions</h2>
+
+<p>I'm really happy with how physics interactions feel in this game! I've been sorely missing HurricaneVR after switching to Godot, and I'm really glad to have a replacement in the works. Grab interactions feel fluid, and I haven't run into any weird physics jank yet.</p>
+
+<p>Doing this game jam was really nice, because I got a ton of dogfood feedback about what the framework needs at this point, and about some of the pain points I ran into. Minor things like needing fine designer control over the held orientation of the held object in addition to the hand pose alignment, but also with the little issues that caused the physics engine to jitter and freak out. It was nice working on expanding my framework in this game jam too - pickable holsters weren't something that I designed for in the original spec, but it was something I was able to hook up with relative ease later on (with some minor alignment issues I never had to resolve, and decided to design around instead).</p>
+
+<p>I think going forward, I need to swap to the factory pattern for instantiating grab joints. Having a more generic approach to setting up grabs would be really nice - I'm currently running into this as an issue when programming secondary grabs (storing references to the grabbers on the grabbed object gets weird when you have 2-handed grabs and let go with one). I don't think GodotXRTools supports this as expected out of the box *.</p>
+
+<div class="aside">* The example I have in mind is using both hands to grab a shotgun. If you let go of the handle, the opposite hand should remain on the barrel of the gun. Last time I tested things, the only functionality that came out of the box was to swap the gun so that you're suddenly holding the handle of the gun with the hand that was previously holding the barrel of the gun.</div>
+
+<p>Yapping aside, these are the things I want to look into at some point for this grab framework:</p>
+<ul>
+	<li>Sockets need a standardized system. At the very least, I need to clean up my current system</li>
+	<li>Need to fix the <code>center_of_mass</code> issue by applying a counter-torque on player movement</li>
+	<li>Add hand pose support</li>
+	<li>Finish adding 2-handed grab support</li>
+</ul>
+
+<h2 id="toc-13">Player Rigs</h2>
+<p>With minor pains, I was able to get my XR architecture working for multiple XR rigs. This mainly meant decoupling global XR things from <code>xr_rig.gd</code> (handling XR controller input to be accessed globally, and accounting for the fact that <code>Globals.xr_rig</code> can both swap mid game and be null).</p>
+<p>Using a <code>RigidBody3D</code> character controler continued to be good, after using it for <a href="https://request.itch.io/hellrot-vr">Hellrot (2025)</a>. This is a stripped down version of the rig I used in that game, mainly that I don't have a second FSM for the grappling hook. As a result, the core movement approach of "laterally accelerate the rigidbody, and clamp its XZ velocity to some maximum point" worked really well here. I do think that I tuned the player to move too fast - I pushed those values a bit too high because I forgot to whitebox test the environment for scale before designing it, so traversing the world took too long otherwise. </p>
+
+<p>On that note, the most consistent piece of feedback I got in this game was that walking up the staircase was very difficult in this game. This was related to a bugfix I put in mid-way through the jam - the staircase was too steep for the player to climb, so I made a tweak to how the player moves while grounded. Instead of applying lateral (XZ) motion along the plane defined by a normal of Y=Up, I apply lateral motion to the plane defined by the ground normal.</p>
+
+<figure>
+	<img src="grounded-movement-vector.png"></a>
+	<figcaption>Grounded locomotion was updated so that the player's joystick movement was applied to the plane defined by the ground normal (right)</figcaption>
+</figure>
+
+<p>This caused issues because players were walking up the staircase successfully, but once they reached the top they had all of this upwards + forward velocity that wasn't getting resolved - the end result was them flying off of the staircase. This was something I missed in testing because I just got used to it. I think when fixing this for next time, I should try to kill the player's y velocity if they enter the in-air state, but there's still ground below them (ie: a short raycast check). This will require some playing around with, to avoid making platforming feel bad.</p>
+
+<h2 id="toc-14">Enemies</h2>
+<p>The enemies were intentionally simple, since they were mainly a simple vehicle for the player having weapons in the first place. I didn't get too experimental here, mainly for a lack of time, what with my focus being on the physics grab system.</p>
+<p>I think the crystal ball enemies were good foil for the sword character. It's really easy for the player to just run around with the sword held to the front/side, and so having an enemy that can tangle and block the player's sword was a good way to challenge the player. At some point I do want to introduce enemies that properly guard against the player in given directions, to switch up gameplay. Thinking something along the lines of Blade and Sorcery's enemies, which hold their weapons perpendicular to the player's held weapon in anticipation of the player's weapon.</p>
+<p>The suit enemies are nothing special mechanically, I just thought the suit model looked cool! I did want a chance to try working with an animated humanoid enemy too, rather than relying on enemy models that came with animations built-in, like the ones in <a href="https://request.itch.io/wingmage-vr">Wingmage VR (2025)</a>. There is a separate hitbox on their heads which will multiply incoming damage by 2x, so there is a little incentive to aim right. I think this would've been more interesting if there were less incentive to hit the suit enemies on the body - maybe the damage reduction on the suit body was dramatic, and the suits themselves were much larger, to really push usage of the gun against them.</p>
+
+<h2 id="toc-15">Arena Management</h2>
+<p>I spent a good amount of time tooling to set up the enemy spawning, and so the arena was a dream to develop for. Huge shout out to ImGui, which made testing and debugging this part super easy. I had an ImGui window that mainly showed debug info about the active wave, but being able to start/stop/debug the wave was huge for me - it's something that I've missed coming from Unity and its custom inspectors.</p>
+<p>Having all of the spawning info stored in a resource was really nice too - it was easy to tweak the intensity and tempo of the round at various points, just by dragging around elements of a list and playing with some timer durations. Being able to have one central place to say "I'm spawning enemy X, N times, at location Y" made design time really easy.</p>
+
+<h2 id="toc-16">Environment</h2>
+<p>I'm really happy with the direction of the environment for this game. I'm still using asset packs that I purchased through humble bundle, and I'm really glad to actually be getting usage out of them lol</p>
+<p><code>Terrain3D</code> was something that I only briefly got to play with during the last jam, since I wasn't responsible for level design. It was really nice being able to work with it from start to end this time. Aside from a few snags here and there, it's a great system to use - very intuitive. I'm really happy that I figured out how to prevent enemies from falling through the floor in this one - that was a huge pain point in the last jam.</p>
+<p>I think I'm starting to lock in an art style for my Godot games now. Working with paid assets is such a dream - I love the art style for my other games like <a href="https://request.moe/shattered-skies">Shattered Skies (2021)</a> where I did all of the modeling and heavy-pixel texturing, but having a huge breadth of models to work with is huge. After disabling linear filtering on the textures for these models, things don't look too out of place with my pre-made low-res textures either. It's a whole thing having to start from 0 in a new engine - I miss my shaders, and my frameworks! I'm slowly working my repetoire up again though, and I'm happy with the results!</p>
+
+<h1 id="toc-17">Summary</h1>
+<p>I think Crystal Bastion was a total success! The physics interaction system works, which was the main thing I wanted to try out, and I'm really glad that it feels as great as it does. Making an actual game around this system was a secondary objective, and so I paid more attention on my systems and less attention to the actual game design and playtesting as I should have (as usual), but it still turned out fun!</p>
+
+<h2 id="toc-18">What went well</h2>
+<p>I'm really happy with how the physics interaction system turned out. The grab interactions feel very natural, and I only had to use a handful of janky bandaids to get it to a stable state. These are all kinks that I can work out when I go back to working on the grab interaction framework with more focus spent on a proper implementation, so no huge concerns there.</p>
+
+<h2 id="toc-19">What didn't go well</h2>
+<p>I think as usual there's always more playtesting that could be done - it's always hard doing this in VR. Mainly in finding a community of folks with the hardware to play it, and the VR legs to withstand the physics vomit contraptions that I'm asking them to try out. That said, I'm always more interested in working on my systems and tools, rather than the end result - so I'm coming out of this happy as usual!</p>
+<h2 id="toc-20">Next Steps</h2>
+<p>I am once again talking about wanting to work on Hexabody/HurricaneVR ports to Godot!</p>
+<p>In terms of next steps, I have a lot of work I still want to put into my grab framework. I would love to clean this up and upload it to the asset hub in an experimental state - but I think I want to clean it up a little first. I also want to finish the 2-handed grab interaction functionality too, that's my main objective for personal development at the moment. The holstering system left a lot to be desired also. I think that refactoring this system to also be a grabber (like in Hurricane VR) makes sense to me, but that might be a little too much complexity that a holster system needs.</p>
+
+<p>I do still want to work on my rigidbody player controller. At the moment I'm just pushing a capsule rigidbody around the scene, but there's a lot of functionality I don't support like climbing or swimming. I also want to implement physics hands like in Hurricane VR, so that there's a physics joint connecting the player's body rigidbody and the player's hands. This would let the player both push light objects around the scene with their hands, but also let the player move around the scene by pulling/pushing heavier/static environment. </p>
+<p>Finally, I want to keep working on my shader implementations. I got a lot of mileage out of one shader that pans a voronoi texture - I'd love to have more versatile shaders like that ready to go for the next jam. It sounds like we just got access to reading/writing to/from the stencil buffer as part of Godot 4.5, so that could be fun to work with! Love a good outline on my models, but it's always been a pain point in VR.</p>
+
+
+		</div>
+	</div>
+	</body>
+</html>
+
