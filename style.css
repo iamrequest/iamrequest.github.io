@@ -63,8 +63,12 @@ body {
 	color: white;
 }
 
-.center {
+.center-text {
 	text-align: center;
+}
+
+.center-margin {
+	margin: auto;
 }
 
 figure {
@@ -73,6 +77,11 @@ figure {
 
 figcaption {
 	color: #999;
+}
+
+.quote {
+	border-left: 0.25em solid #6a7177;
+	padding: 0.5em;
 }
 
 
@@ -167,3 +176,12 @@ figcaption {
 }
 
 
+/* Articles */
+.article-image {
+	height: 100%;
+}
+
+/* Code */
+.codeblock {
+	color: inherit;
+}

@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+	 	<meta charset="utf-8">
+	 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	 	<!-- Bootstrap CSS -->
+	 	<link href="../../bootstrap.min.css" rel="stylesheet">
+
+		<!-- Bootstrap JS & Popper -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+		<!-- Local CSS -->
+		<link rel="stylesheet" href="../../style.css" />
+		<link rel="stylesheet" href="../../style_article.css" />
+
+		<!-- Font -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P">
+
+		<title>made by request</title>
+
+	</head>
+	<body>
+
+	<div id="page-wrapper">
+	<div id="logo-and-music-wrapper">
+		<!-- Music -->
+		<div class="item-container">
+			<header class="item-container-header">
+				<span class="header-text">Music</span>
+			</header>
+
+			<div class="item-container-body music-container-body">
+				<iframe style="border: 0; width: 300px; height: 500px;" src="https://bandcamp.com/EmbeddedPlayer/album=2458872376/size=large/bgcol=333333/linkcol=e99708/transparent=true/" seamless><a href="https://request.bandcamp.com/album/cloudburst">cloudburst by Request</a></iframe>
+			</div>
+		</div>
+
+		<!-- Logo Container -->
+		<div class="item-container logo-container">
+			<header class="item-container-header">
+				<span class="header-text">
+					<strong>Made by request</strong>
+					<span class="header-subtext">made with love</span>
+				</span>
+			</header>
+
+			<div class="item-container-body logo-container-body">
+				<img class="header-logo" src="../../images/request-moe.png"/>
+				<p class="logo-text">I push buttons, and I make free + open source virtual reality games</p>
+
+
+				<hr class="link-hr" />
+
+				<div class="link-container">
+					<div class="link-group-title">Socials</div>
+
+					<div class="link-group">
+						<a class="link-url" href="https://bsky.app/profile/request.moe">
+							Bluesky
+						</a>
+						<a class="link-url" href="https://request.itch.io">
+							Itch.io
+						</a>
+						<a class="link-url" href="https://github.com/iamrequest">
+							Github
+						</a>
+					</div>
+
+					<div class="link-group">
+						<a class="link-url" href="https://opengameart.org/users/request">
+        	    		    OpenGameArt
+        	    		</a>
+						<a class="link-url" href="https://request.bandcamp.com">
+        	    		    Bandcamp
+        	    		</a>
+					</div>
+
+					<div class="link-group-title">Information</div>
+					<div class="link-group">
+						<a class="link-url" href="../../articles.html">
+							Articles
+						</a>
+						<a class="link-url" href="../../index.html">
+							Games
+						</a>
+						<a class="link-url" href="../../postmortems.html">
+							Postmortems
+						</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div id="body-wrapper">
+
+		<div class="item-container">
+			<header class="item-container-header">
+				<span class="header-text">A Crash Course on Databases in Godot using GodotSQLite</span>
+			</header>
+
+			<div class="item-container-body article-container-body">
+
+<h1>Table of Contents</h1>
+<ul>
+<li><a href="#toc-1">About</a></li>
+<ul>
+<li><a href="#toc-2">What is a Database?</a></li>
+<li><a href="#toc-3">About SQLite</a></li>
+</ul>
+<li><a href="#toc-4">Setup</a></li>
+<li><a href="#toc-5">Creating a Database</a></li>
+<ul>
+<li><a href="#toc-6">About user:// vs res://</a></li>
+</ul>
+<li><a href="#toc-7">Creating Tables</a></li>
+<li><a href="#toc-8">Basic operations (CRUD)</a></li>
+<ul>
+<li><a href="#toc-9">Create (Insert)</a></li>
+<li><a href="#toc-10">Read Data (Select)</a></li>
+<li><a href="#toc-11">Update Data</a></li>
+<li><a href="#toc-12">Delete Data</a></li>
+</ul>
+<li><a href="#toc-13">Advanced Queries</a></li>
+<ul>
+<li><a href="#toc-14">Joins</a></li>
+<li><a href="#toc-15">Sanitizing Query Input (Preventing SQL Injections)</a></li>
+</ul>
+<li><a href="#toc-16">Credits</a></li>
+</ul>
+
+
+<h1 id="toc-1">About</h1>
+<p>This article is mainly meant to get you off the ground with using databases in Godot. If you'd rather watch a video about this topic, I recommend <a href="https://www.youtube.com/watch?v=j-BRiTrw_F0">FinePointCGI's video on this plugin</a>.</p>
+<h2 id="toc-2">What is a Database?</h2>
+<p>A database is one way of storing data, in the same way that you might use a flat file (eg: CSV file, JSON file, etc). </p>
+<p>The benefit to using a database instead of a simple text file is in efficient read/writes, data organization, and super quick queries (eg: select all high score entries with a high score above 100, and sort them alphabetically).</p>
+<h2 id="toc-3">About SQLite</h2>
+<p><a href="https://www.sqlite.org/">SQLite</a> is an open source database library. From the SQLite home page: </p>
+
+<blockquote class="quote"> SQLite is a C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine. SQLite is the most used database engine in the world. SQLite is built into all mobile phones and most computers and comes bundled inside countless other applications that people use every day.</blockquote>
+
+<p>Unless you have a use-case that requires a feature from another type of database, I recommend this one. Remember to <a href="https://en.wikipedia.org/wiki/KISS_principle">keep it simple, stupid!</a> That said, a database may not be the right choice for you. If a flat file works for you, then more power to you. This is just another tool available to you.</p>
+<h1 id="toc-4">Setup</h1>
+<p>These install instructions are valid as of September 23, 2025. You're probably good to follow these instructions, but it's worth checking the github page to be safe.</p>
+<ul>
+<li>In the Godot Asset Store, search for <code>Godot-SQLite</code>, and download it.</li>
+<li>Open the Project Settings window (<code>Project -&gt; Project Settings</code>). Click on the <code>Plugins</code> tab, and enable the <code>Godot SQLite</code> plugin.</li>
+</ul>
+
+<figure>
+	<img src="installation-1.png" />
+	<figcaption>Download the plugin from the asset store.</figcaption>
+</figure>
+<figure>
+	<img src="installation-2.png" />
+	<figcaption>Enable the plugin in the Project Settings window.</figcaption>
+</figure>
+
+<p>You may want to also install a database browser, so you can inspect your data. I recommend <a href="https://sqlitebrowser.org/">DB Browser for SQLite (DB4S)</a>.</p>
+<h1 id="toc-5">Creating a Database</h1>
+<p>Your SQLite database will be stored in a <code>.db</code> file. You can save this anywhere, but for now we can write it to the <code>user://</code> directory.</p>
+<pre><code class="codeblock"><span class="hlgd-keyword">var</span> <span class="hlgd-keyword">db</span>: SQLite
+<span class="hlgd-keyword">var</span> _db_path := <span class="hlgd-string">"user://player_data.db"</span>
+
+<span class="hlgd-keyword">func</span> <span class="hlgd-funcname">open_database</span>() -&gt; bool:
+	<span class="hlgd-keyword">db</span> = SQLite.new()
+	<span class="hlgd-keyword">db</span>.path = _db_path
+
+	<span class="hlgd-keyword">var</span> was_db_opened_successfully = <span class="hlgd-keyword">db</span>.open_db()
+
+	# Handle <span class="hlgd-keyword">error</span> case <span class="hlgd-keyword">as</span> you see <span class="hlgd-keyword">fit</span>
+        <span class="hlgd-keyword">return</span> was_db_opened_successfully
+</code></pre><p>This will open the database file, and will also create the file if it doesn't already exist.</p>
+<h2 id="toc-6">About user:// vs res://</h2>
+<p>You likely want to store your database file as a child of the <code>user://</code> directory, rather than <code>res://</code>. From the <a href="https://docs.godotengine.org/en/stable/tutorials/io/data_paths.html">Godot documentation</a>:</p>
+<blockquote class="quote">
+	<p>To store persistent data files, like the player's save or settings, you want to use user:// instead of res:// as your path's prefix. This is because when the game is running, the project's file system will likely be read-only.</p>
+	<p>The user:// prefix points to a different directory on the user's device. Unlike res://, the directory pointed at by user:// is created automatically and guaranteed to be writable to, even in an exported project.</p>
+</blockquote>
+<h1 id="toc-7">Creating Tables</h1>
+<p>You can create a table either in a database browser, or via code.</p>
+<p>First, we define the columns in a dictionary.</p>
+<pre><code class="codeblock"><span class="hlgd-keyword">var</span> column_definitions = {
+    <span class="hlgd-comment"># Primary Key</span>
+    <span class="hlgd-string">"id"</span>: {
+        <span class="hlgd-string">"data_type"</span>: <span class="hlgd-string">"int"</span>,
+        <span class="hlgd-string">"primary_key"</span>: <span class="hlgd-literal">true</span>,
+        <span class="hlgd-string">"not_null"</span>: <span class="hlgd-literal">true</span>,
+        <span class="hlgd-string">"auto-increment"</span>: <span class="hlgd-literal">true</span>
+    },
+
+    <span class="hlgd-comment"># Foreign Key (see note below)</span>
+    <span class="hlgd-string">"album_id"</span>: { 
+        <span class="hlgd-string">"data_type"</span>: <span class="hlgd-string">"int"</span> ,
+
+        <span class="hlgd-comment"># Assume that the table "albums" exists, with a primary key of "album_id"</span>
+        <span class="hlgd-string">"foreign_key"</span>: <span class="hlgd-string">"albums.album_id"</span> ,
+    },
+
+    <span class="hlgd-comment"># Some example fields</span>
+    <span class="hlgd-string">"song_name"</span>: { 
+        <span class="hlgd-string">"data_type"</span>: <span class="hlgd-string">"text"</span>,
+
+        <span class="hlgd-comment"># Defines a UNIQUE constraint on the column</span>
+        <span class="hlgd-string">"unique"</span>: <span class="hlgd-literal">false</span>,
+
+        <span class="hlgd-comment"># Defines the default value of the column, if none is supplied</span>
+        <span class="hlgd-string">"default"</span>: <span class="hlgd-string">"DefaultSong"</span>
+    },
+
+    <span class="hlgd-comment"># For byte arrays (images, raw data, etc)</span>
+    <span class="hlgd-string">"album_art"</span>: { <span class="hlgd-string">"data_type"</span>: <span class="hlgd-string">"blob"</span> },
+
+    <span class="hlgd-comment"># For floats/doubles</span>
+    <span class="hlgd-string">"bpm"</span>: { <span class="hlgd-string">"data_type"</span>: <span class="hlgd-string">"real"</span> },
+}
+</code></pre><p>Then, we create the table in the database:</p>
+<pre><code class="codeblock"><span class="hlgd-keyword">var</span> my_table_name := <span class="hlgd-string">"songs"</span>
+db.create_table(my_table_name, column_definitions)
+</code></pre><p>Note: To make the database enforce the relationship of foreign keys, you have to manually set <code>db.foreign_keys = true</code>. This is recommended, to ensure data integrity in your database.</p>
+<p>As of September 2025, these are the data types available to you when creating tables. Any data types not found in the table will throw an exception if you try to use them. You can find the full, up to date list of data types on the <a href="https://github.com/2shady4u/godot-sqlite">github page</a>.</p>
+<table class="table-sm table-striped table-bordered center-margin">
+<thead>
+<tr>
+<th>Data Type</th>
+<th>SQLite</th>
+<th>Godot</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int</td>
+<td>INTEGER</td>
+<td>TYPE_INT</td>
+</tr>
+<tr>
+<td>real</td>
+<td>REAL</td>
+<td>TYPE_REAL</td>
+</tr>
+<tr>
+<td>text</td>
+<td>TEXT</td>
+<td>TYPE_STRING</td>
+</tr>
+<tr>
+<td>char(?)*</td>
+<td>CHAR(?)</td>
+<td>TYPE_STRING</td>
+</tr>
+<tr>
+<td>blob</td>
+<td>BLOB</td>
+<td>TYPE_PACKED_BYTE_ARRAY</td>
+</tr>
+</tbody>
+</table>
+<p>*: The question mark should be replaced with the maximum number of characters usable in the column.</p>
+<h1 id="toc-8">Basic operations (CRUD)</h1>
+<p>The 4 types of database queries you'll typically be doing are CRUD operations: Create, Read, Update, Delete.</p>
+<h2 id="toc-9">Create (Insert)</h2>
+<pre><code class="codeblock"><span class="hlgd-keyword">var</span> row_data = {
+    <span class="hlgd-string">"song_name"</span>: <span class="hlgd-string">"Perpetual Terminal"</span>,
+    <span class="hlgd-string">"bpm"</span>: 128
+}
+
+<span class="hlgd-keyword">db</span>.insert_row(<span class="hlgd-string">"songs"</span>, row_data)
+</code></pre><h2 id="toc-10">Read Data (Select)</h2>
+<p>Below is a simple example of doing a SELECT statement on a single table. A more complex example that includes JOIN statements and parameter binding can be found further below.</p>
+<pre><code class="codeblock"><span class="hlgd-selector-tag">var</span> table_name := <span class="hlgd-string">"songs"</span>
+<span class="hlgd-selector-tag">var</span> where_clause := <span class="hlgd-string">"bpm &gt; 120"</span>
+<span class="hlgd-selector-tag">var</span> <span class="hlgd-attribute">columns</span> := [ <span class="hlgd-string">"song_name"</span>, <span class="hlgd-string">"bpm"</span> ]
+<span class="hlgd-selector-tag">var</span> results = db.select_rows(table_name, where_clause, <span class="hlgd-attribute">columns</span>)
+
+<span class="hlgd-function"><span class="hlgd-title">print</span><span class="hlgd-params">(results)</span></span>
+[
+    { <span class="hlgd-string">"name"</span>: <span class="hlgd-string">"Perpetual Terminal"</span>, <span class="hlgd-string">"bpm"</span>: <span class="hlgd-number">128</span> },
+    { <span class="hlgd-string">"name"</span>: <span class="hlgd-string">"Marigold"</span>, <span class="hlgd-string">"bpm"</span>: <span class="hlgd-number">213</span> },
+]
+</code></pre><p>You might iterate over the results like so:</p>
+<pre><code class="codeblock"><span class="hlgd-keyword">for</span> <span class="hlgd-built_in">row</span> <span class="hlgd-keyword">in</span> results:
+    <span class="hlgd-built_in">print</span>(<span class="hlgd-string">"%s: %s"</span> <span class="hlgd-symbol">%</span> [ <span class="hlgd-built_in">row</span>[<span class="hlgd-string">"name"</span>], <span class="hlgd-built_in">row</span>[<span class="hlgd-string">"bpm"</span>] ])
+</code></pre><h2 id="toc-11">Update Data</h2>
+<pre><code class="codeblock"><span class="hlgd-keyword">var</span> table_name := <span class="hlgd-string">"songs"</span>
+<span class="hlgd-keyword">var</span> where_clause := <span class="hlgd-string">"id = 1"</span>
+<span class="hlgd-keyword">var</span> row_data := [ 
+    <span class="hlgd-string">"song_name"</span>, <span class="hlgd-string">"Free Rein to Passions"</span> 
+    <span class="hlgd-string">"bpm"</span>, <span class="hlgd-string">"135"</span> 
+]
+
+<span class="hlgd-keyword">var</span> was_successful: <span class="hlgd-keyword">bool</span> = db.update_rows(table_name, where_clause, row_data)
+</code></pre><h2 id="toc-12">Delete Data</h2>
+<pre><code class="codeblock"><span class="hlgd-keyword">var</span> table_name := <span class="hlgd-string">"songs"</span>
+<span class="hlgd-keyword">var</span> where_clause := <span class="hlgd-string">"id = 1"</span>
+
+<span class="hlgd-keyword">var</span> was_successful: <span class="hlgd-keyword">bool</span> = db.delete_rows(table_name, where_clause)
+</code></pre><h1 id="toc-13">Advanced Queries</h1>
+<h2 id="toc-14">Joins</h2>
+<p>You will often need to fetch and filter data from more than one table. This is where Joins will come in.</p>
+<pre><code class="codeblock"># 1. Build your <span class="hlgd-keyword">query</span>
+<span class="hlgd-keyword">var</span> query_string := "
+    SELECT songs.name <span class="hlgd-keyword">as</span> song_name, 
+        songs.bpm <span class="hlgd-keyword">as</span> bpm, 
+        albums.name <span class="hlgd-keyword">as</span> album_name,
+        albums.release_date
+    FROM
+        songs
+            LEFT JOIN albums <span class="hlgd-keyword">ON</span> songs.id = albums.id
+    WHERE
+        albums.name = 'Darkest Hour'"
+
+# 2. Perform the <span class="hlgd-keyword">query</span>
+<span class="hlgd-keyword">var</span> was_successful: bool = <span class="hlgd-keyword">db</span>.<span class="hlgd-keyword">query</span>(query_string)
+
+# 3. Fetch the <span class="hlgd-keyword">query</span> results via the array <span class="hlgd-keyword">db</span>.query_result()
+<span class="hlgd-keyword">for</span> row <span class="hlgd-keyword">in</span> <span class="hlgd-keyword">db</span>.query_result:
+    <span class="hlgd-keyword">print</span>(row)
+    # ...
+</code></pre><p>Example result:</p>
+<pre><code class="codeblock">[
+    { 
+        <span class="hlgd-attr">"song_name"</span>: <span class="hlgd-string">"Unfamiliar Sun"</span>,
+        <span class="hlgd-attr">"album_name"</span>: <span class="hlgd-string">"Lookout Low"</span>,
+        <span class="hlgd-attr">"release_date"</span>: <span class="hlgd-number">2019</span>
+    },
+    { 
+        <span class="hlgd-attr">"song_name"</span>: <span class="hlgd-string">"DVP"</span>,
+        <span class="hlgd-attr">"album_name"</span>: <span class="hlgd-string">"The Dream Is Over"</span>,
+        <span class="hlgd-attr">"release_date"</span>: <span class="hlgd-number">2016</span>
+    }
+]
+</code></pre><p>Warning! This above approach to making queries is vulnerable to  and is not recommended if you're planning on using a query that includes user input. The issue is that if we don't sanitize the input going into our queries, users will be able to execute arbitrary SQL code (bad!). </p>
+<h2 id="toc-15">Sanitizing Query Input (Preventing SQL Injections)</h2>
+<p>I recommend using <code>db.query_with_bindings()</code> instead of <code>db.query()</code> anywhere that you plan on including user input. It works almost exactly the same, with a small change:</p>
+<pre><code class="codeblock"># 1. Create the <span class="hlgd-keyword">query</span> string <span class="hlgd-keyword">in</span> the same way, substituting user <span class="hlgd-keyword">input</span> <span class="hlgd-keyword">for</span> a question <span class="hlgd-keyword">mark</span>
+<span class="hlgd-keyword">var</span> query_string := "
+    SELECT 
+        # [... ]
+    WHERE
+        albums.name = ?;" 
+
+
+# Instead of putting user <span class="hlgd-keyword">input</span> directly <span class="hlgd-keyword">in</span> the <span class="hlgd-keyword">query</span> string, we instead add it to <span class="hlgd-keyword">an</span> array
+<span class="hlgd-keyword">var</span> album_name = _album_name_text_field.text
+<span class="hlgd-keyword">var</span> query_bindings = [ album_name ] 
+
+
+# 2. Perform the <span class="hlgd-keyword">query</span>
+<span class="hlgd-keyword">var</span> was_successful: bool = <span class="hlgd-keyword">db</span>.query_with_bindings(query_string, query_bindings)
+
+# 3. Fetch the <span class="hlgd-keyword">query</span> results <span class="hlgd-keyword">in</span> the same way <span class="hlgd-keyword">as</span> you would with <span class="hlgd-keyword">db</span>.query_result()
+<span class="hlgd-keyword">for</span> row <span class="hlgd-keyword">in</span> <span class="hlgd-keyword">db</span>.query_result:
+    <span class="hlgd-keyword">print</span>(row)
+    # ...
+</code></pre><h1 id="toc-16">Credits</h1>
+<ul>
+<li><a href="https://www.sqlite.org/">SQLite</a></li>
+<li><a href="https://github.com/2shady4u/godot-sqlite">Godot SQLite</a></li>
+<li><a href="https://www.youtube.com/watch?v=j-BRiTrw_F0">FinePointCGI: Integrating SQLite into Godot 4.2</a></li>
+</ul>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
+

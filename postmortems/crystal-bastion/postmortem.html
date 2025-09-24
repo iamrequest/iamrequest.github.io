@@ -78,6 +78,9 @@
 
 					<div class="link-group-title">Information</div>
 					<div class="link-group">
+						<a class="link-url" href="../../articles.html">
+							Articles
+						</a>
 						<a class="link-url" href="../../index.html">
 							Games
 						</a>
@@ -179,7 +182,7 @@
 <p>The PickableGrabBag contains all of the "selection" logic: identifying when an object is hovered by the hand, either via overlap radius or via a ranged grab. This script is a stripped down version of Godot XRTools' FunctionPickup.gd, refactored into a separate file to isolate selection logic from joint management logic.</p>
 
 <figure>
-	<img src="joint-node-hierarchy.png"></a>
+	<img src="joint-node-hierarchy.png" />
 	<figcaption>The node hierarchy for the physics grab prefab.</figcaption>
 </figure>
 
@@ -202,7 +205,7 @@
 <p>The downside of this is that I found I was unable to apply a one-shot torque to my pickables, and have it actually look like anything was happening. At one point I tried to apply a recoil to the laser gun (dream with me, that it makes sense for a laser gun to have recoil - it looks cool!), but there was so much correctional torque being applied to the gun via the grab joint that it wasn't visible. Turning the angular spring joint stiffness down resolved this issue, but the grab interaction felt too "floppy". Spending a little more time fine-tuning the joint config should resolve this, and worst-case I could also take a more-gross approach of applying force over a short period of time (which would give me better control over recoil anyways).</p>
 
 <figure>
-	<img src="joint-config.png"></a>
+	<img src="joint-config.png" />
 	<figcaption>The configuration for this joint. The linear/angular spring stiffness+damping were the only real things I needed to play with. </figcaption>
 </figure>
 
@@ -229,7 +232,7 @@
 <p>The way that I set up the player rig also caused some physics issues for me. I was finding that while the player rig was in motion, I was getting some jittery movement behaviour on the held pickable - as if the motion of the joint <code>RigidBody3D</code> wasn't being calculated at the same tick rate. I was able to resolve this by disabling <code>Physics Interpolation</code> and setting <code>Physics Jitter Fix</code> to 1.0. Disabling Physics Interpolation hasn't caused any issues for me yet, but that may be because my physics tick rate is set close to what the screen refresh rate is.</p>
 
 <figure>
-	<img src="physics-config.png"></a>
+	<img src="physics-config.png" />
 	<figcaption>The project's physics configuration.</figcaption>
 </figure>
 
@@ -252,7 +255,7 @@
 <p>The configuration of each round is stored in a resource which stores a list of <code>WaveConfig</code>s. Each wave is defined as a group of a single enemy type being spawned at a spawn location, with some extra information stored about wave timing (ie: how long to wait before the wave starts, how long to wait between spawning each enemy, whether or not all enemies must be killed before this wave is considered complete). Once a round is started, the <code>ArenaManager</code> iterates over each <code>WaveConfig</code> in the round, waiting for various timeouts and instantiating enemies as per the wave config.</p>
 
 <figure>
-	<img src="round-config.png"></a>
+	<img src="round-config.png" />
 	<figcaption>The resource used to store a round of combat. Each wave represents a single enemy type spawned at a single location, a given number of times. There's also some extra information that controls spawn timing, and BGM intensity</figcaption>
 </figure>
 
@@ -283,7 +286,7 @@
 <p>On that note, the most consistent piece of feedback I got in this game was that walking up the staircase was very difficult in this game. This was related to a bugfix I put in mid-way through the jam - the staircase was too steep for the player to climb, so I made a tweak to how the player moves while grounded. Instead of applying lateral (XZ) motion along the plane defined by a normal of Y=Up, I apply lateral motion to the plane defined by the ground normal.</p>
 
 <figure>
-	<img src="grounded-movement-vector.png"></a>
+	<img src="grounded-movement-vector.png" />
 	<figcaption>Grounded locomotion was updated so that the player's joystick movement was applied to the plane defined by the ground normal (right)</figcaption>
 </figure>
 
